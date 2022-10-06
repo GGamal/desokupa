@@ -53,14 +53,12 @@
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
           <div class="row justify-center no-wrap q-gutter-xs">
-            <q-btn icon="visibility" label="Ver" size="sm" color="orange" dense rounded push no-wrap style="width:90px"
+            <q-btn icon="visibility" size="sm" color="orange" dense rounded push no-wrap style="width:90px"
             @click="cliente = props.row, dialog = true"/>
-            <q-btn label="Editar" size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
             @click="$router.push('/editar/cliente/' + props.row._id)"/>
-            <q-btn label="Eliminar" size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
             @click="eliminar(props.row)"/>
-            <q-btn label="Agregar Inmueble" size="sm" icon="add" color="brown" dense rounded push no-wrap style="width:130px"
-            @click="provincia = null, localidad = null, form = {}, form.cliente_id = props.row._id, $v.form.$reset(), newInmueble = true"/>
             <q-btn v-if="props.row.inmuebles.length > 0" label="Inmuebles" size="sm" icon="apartment" color="green" dense rounded push no-wrap style="width:130px" @click="showState = true, state = props.row.inmuebles"/>
           </div>
         </q-td>

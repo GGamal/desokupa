@@ -87,24 +87,54 @@ export default {
           items: [
             {
               icon: 'people',
-              label: 'Clientes',
+              label: 'Listado de Clientes',
               ruta: '/clientes'
             },
             {
-              icon: 'business',
-              label: 'Inmuebles',
-              ruta: '/inmuebles'
+              icon: 'people',
+              label: 'Nuevo cliente',
+              ruta: '/registro/cliente'
             }
+            // {
+            //   icon: 'business',
+            //   label: 'Inmuebles',
+            //   ruta: '/inmuebles'
+            // }
           ]
         },
         {
           icon: 'payments',
-          label: 'Módulo Ventas',
+          label: 'Administracion',
           items: [
             {
               icon: 'request_quote',
-              label: 'Presupuesto',
+              label: 'Crear Presupuesto',
+              ruta: '/Crear/presupuestos'
+            },
+            {
+              icon: 'request_quote',
+              label: 'lista Presupuesto',
               ruta: '/presupuestos'
+            },
+            {
+              icon: 'request_quote',
+              label: 'Generar pdf contrato',
+              ruta: ''
+            },
+            {
+              icon: 'payments',
+              label: 'Cobros',
+              ruta: '/cobros'
+            },
+            {
+              icon: 'money_off',
+              label: 'Gastos',
+              ruta: '/gastos'
+            },
+            {
+              icon: 'format_list_bulleted',
+              label: 'Historial',
+              ruta: '/contabilidad'
             }
           ]
         },
@@ -130,27 +160,27 @@ export default {
             }
           ]
         },
-        {
-          icon: 'request_quote',
-          label: 'Módulo Contabilidad',
-          items: [
-            {
-              icon: 'payments',
-              label: 'Cobros',
-              ruta: '/cobros'
-            },
-            {
-              icon: 'money_off',
-              label: 'Gastos',
-              ruta: '/gastos'
-            },
-            {
-              icon: 'format_list_bulleted',
-              label: 'Historial',
-              ruta: '/contabilidad'
-            }
-          ]
-        },
+        // {
+        //   icon: 'request_quote',
+        //   label: 'Módulo Contabilidad',
+        //   items: [
+        //     {
+        //       icon: 'payments',
+        //       label: 'Cobros',
+        //       ruta: '/cobros'
+        //     },
+        //     {
+        //       icon: 'money_off',
+        //       label: 'Gastos',
+        //       ruta: '/gastos'
+        //     },
+        //     {
+        //       icon: 'format_list_bulleted',
+        //       label: 'Historial',
+        //       ruta: '/contabilidad'
+        //     }
+        //   ]
+        // },
         {
           icon: 'gavel',
           label: 'Módulo Juridico',
@@ -184,13 +214,18 @@ export default {
           items: [
             {
               icon: 'people',
-              label: 'Usuarios-Perfiles',
+              label: 'Listado de usuarios',
               ruta: '/usuarios'
             },
             {
               icon: 'payment',
               label: 'Formas de pago',
               ruta: '/formas_de_pago'
+            },
+            {
+              icon: 'people',
+              label: 'Nuevo usuario',
+              ruta: '/registro/usuario'
             }
           ]
         }

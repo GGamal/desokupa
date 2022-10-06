@@ -35,8 +35,8 @@
             <q-input outlined v-model="form.last_name"  dense placeholder="Ingrese los apellidos"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            {{!juridico ? 'DNI' : 'CIF'}}
-            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el DNI' : 'Ingrese el CIF'"
+            {{!juridico ? 'Numero de identificacion' : 'CIF'}}
+            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el Numero de identificaion' : 'Ingrese el CIF'"
             error-message="Este campo es requerido" :error="$v.form.dni.$error" @blur="$v.form.dni.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
@@ -122,7 +122,7 @@ export default {
       provincias: [],
       localidades: [],
       tipos: [
-        { val: 1, name: 'Persona física' },
+        { val: 1, name: 'Persona natural' },
         { val: 2, name: 'Persona jurídica' }
       ]
     }

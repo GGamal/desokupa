@@ -25,6 +25,7 @@ const routes = [
       { path: '/comercial/:id', component: () => import('pages/inmobiliaria/Comercial.vue') },
       // Comercial
       { path: '/presupuestos', component: () => import('pages/comercio/Contratos.vue') },
+      { path: '/Crear/presupuestos', component: () => import('pages/comercio/CrearPresupuesto.vue') },
       { path: '/presupuestos/desokupa', component: () => import('pages/comercio/Desokupa.vue') },
       { path: '/presupuestos/365', component: () => import('pages/comercio/Contrato365.vue') },
       { path: '/clientes', component: () => import('pages/comercio/Clientes.vue') },

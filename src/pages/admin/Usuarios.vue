@@ -53,11 +53,11 @@
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
           <div class="row justify-center no-wrap q-gutter-xs">
-            <q-btn label="Ver" icon="visibility" size="sm" color="orange" dense rounded push no-wrap style="width:80px"
+            <q-btn icon="visibility" size="sm" color="orange" dense rounded push no-wrap style="width:80px"
             @click="usuario = props.row, dialog = true"/>
-            <q-btn label="Editar" size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:80px"
+            <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:80px"
             @click="$router.push('/editar/usuario/' + props.row._id)"/>
-            <q-btn label="Eliminar" size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
             @click="eliminar(props.row)"/>
           </div>
         </q-td>

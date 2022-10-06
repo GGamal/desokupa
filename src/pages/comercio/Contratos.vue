@@ -19,8 +19,8 @@
             </template>
           </q-input>
         </div>
-        <q-btn no-caps dense color="primary" label="Crear presupuesto" icon="add" class="q-ml-sm q-px-sm"
-        @click="crearContrato()" />
+        <!-- <q-btn no-caps dense color="primary" label="Crear presupuesto" icon="add" class="q-ml-sm q-px-sm"
+        @click="crearContrato()" /> -->
       </div>
     </div>
 
@@ -84,7 +84,7 @@
       </template>
     </q-table>
 
-    <q-dialog v-model="dialog">
+    <!-- <q-dialog v-model="dialog">
       <q-card class="q-pa-none" style="width:100%">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
           <img src="desocupa 1.png" style="width:150px" />
@@ -205,7 +205,7 @@
           @click="generar()" />
         </div>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
   </div>
 </template>
 
