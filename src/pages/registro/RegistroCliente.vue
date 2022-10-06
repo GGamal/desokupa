@@ -36,7 +36,7 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             {{!juridico ? 'Numero de identificacion' : 'CIF'}}
-            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el Numero de identificaion' : 'Ingrese el CIF'"
+            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el numero de identificacion' : 'Ingrese el CIF'"
             error-message="Este campo es requerido" :error="$v.form.dni.$error" @blur="$v.form.dni.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
@@ -56,6 +56,11 @@
             Dirección
             <q-input outlined v-model="form.direccion"  dense placeholder="Ingrese la dirección"
             error-message="Este campo es requerido" :error="$v.form.direccion.$error" @blur="$v.form.direccion.$touch()"/>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+            Pais
+            <q-select standout outlined dense color="black" class="q-field__native row items-center bgn" v-model="form.pais" map-options option-label="name" option-value="val" :options="paises" label="Selecciona un pais"
+             error-message="Este campo es requerido" :error="$v.form.pais.$error" @blur="$v.form.pais.$touch()" />
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Provincia
@@ -109,8 +114,17 @@
   </div>
 </template>
 <script>
+// import { ref } from 'vue'
 import { required, email, requiredIf } from 'vuelidate/lib/validators'
 export default {
+  // setup () {
+  //   const pais = ref(null),
+  //   const paises = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'],
+  //   return {
+  //     pais,
+  //     paises
+  //   }
+  // },
   data () {
     return {
       provincia: null,
@@ -119,8 +133,23 @@ export default {
       edit: false,
       form: {},
       apoderado: {},
+      pais: {},
       provincias: [],
       localidades: [],
+      paises: [
+        { val: 1, name: 'Argentina' },
+        { val: 2, name: 'Chile' },
+        { val: 3, name: 'Colombia' },
+        { val: 4, name: 'Uruguay' },
+        { val: 5, name: 'Ecuador' },
+        { val: 6, name: 'Estados Unidos' },
+        { val: 7, name: 'Republica Dominicana' },
+        { val: 8, name: 'Mexico' },
+        { val: 9, name: 'Peru' },
+        { val: 10, name: 'Ecuador' },
+        { val: 11, name: 'España' },
+        { val: 12, name: 'otro' }
+      ],
       tipos: [
         { val: 1, name: 'Persona natural' },
         { val: 2, name: 'Persona jurídica' }
@@ -129,6 +158,7 @@ export default {
   },
   validations: {
     form: {
+      pais: { required },
       type: { required },
       dni: { required },
       direccion: { required },

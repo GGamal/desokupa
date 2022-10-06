@@ -20,8 +20,8 @@
             </template>
           </q-input>
         </div>
-        <q-btn no-caps dense color="primary" label="Crear Cliente" icon="add" class="q-ml-sm q-px-sm"
-        @click="$router.push('/registro/cliente')" />
+        <!-- <q-btn no-caps dense color="primary" label="Crear Cliente" icon="add" class="q-ml-sm q-px-sm"
+        @click="$router.push('/registro/cliente')" /> -->
       </div>
     </div>
     <div class="row q-pb-md">
@@ -59,7 +59,7 @@
             @click="$router.push('/editar/cliente/' + props.row._id)"/>
             <q-btn size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
             @click="eliminar(props.row)"/>
-            <q-btn v-if="props.row.inmuebles.length > 0" label="Inmuebles" size="sm" icon="apartment" color="green" dense rounded push no-wrap style="width:130px" @click="showState = true, state = props.row.inmuebles"/>
+            <!-- <q-btn v-if="props.row.inmuebles.length > 0" label="Inmuebles" size="sm" icon="apartment" color="green" dense rounded push no-wrap style="width:130px" @click="showState = true, state = props.row.inmuebles"/> -->
           </div>
         </q-td>
       </template>
@@ -201,7 +201,7 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="newInmueble">
+    <!-- <q-dialog v-model="newInmueble">
       <q-card class="q-pa-none" style="width: 100%">
       <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
         <img src="desocupa 1.png" style="width:150px" />
@@ -262,7 +262,7 @@
           </q-card>
         </div>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
   </div>
 </template>
 

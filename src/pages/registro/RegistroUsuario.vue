@@ -85,8 +85,8 @@
             />
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            {{inmobiliaria ? 'CIF' : 'DNI'}}
-            <q-input outlined v-model="form.dni"  dense :placeholder="inmobiliaria ? 'Ingrese el CIF' : 'Ingrese el DNI'"
+            {{inmobiliaria ? 'CIF' : 'Numero de identificacion'}}
+            <q-input outlined v-model="form.dni"  dense :placeholder="inmobiliaria ? 'Ingrese el CIF' : 'Ingrese el numero de identificacion'"
             error-message="Este campo es requerido" :error="$v.form.dni.$error" @blur="$v.form.dni.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">

@@ -29,6 +29,13 @@
               </template>
             </q-field>
           </div>
+           <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+            <q-field label="Teléfono" outlined dense stack-label>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{form.pais}}</div>
+              </template>
+            </q-field>
+          </div> -->
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             <q-field label="Provincia" outlined dense stack-label>
               <template v-slot:control>

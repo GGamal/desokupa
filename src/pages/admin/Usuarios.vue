@@ -19,8 +19,8 @@
             </template>
           </q-input>
         </div>
-        <q-btn no-caps dense color="primary" label="Crear nuevo Usuario" icon="add" class="q-ml-sm q-px-sm"
-        @click="$router.push('/registro/usuario')" />
+        <!-- <q-btn no-caps dense color="primary" label="Crear nuevo Usuario" icon="add" class="q-ml-sm q-px-sm"
+        @click="$router.push('/registro/usuario')" /> -->
       </div>
     </div>
 
