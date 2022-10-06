@@ -123,6 +123,11 @@
             error-message="Este campo es requerido" :error="$v.form.direccion.$error" @blur="$v.form.direccion.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+            Pais
+            <q-select standout outlined dense color="black" class="q-field__native row items-center bgn" v-model="form.pais" map-options option-label="name" option-value="val" :options="paises" label="Selecciona un pais"
+             error-message="Este campo es requerido" :error="$v.form.pais.$error" @blur="$v.form.pais.$touch()" />
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Provincia
             <q-select v-model="provincia" outlined dense color="black" :options="provincias" label="Seleccione la provincia" map-options option-label="name" emit-value @input="localidadPorId(provincia.id)" error-message="Este campo es requerido" :error="$v.provincia.$error" @blur="$v.provincia.$touch()"/>
           </div>
