@@ -118,36 +118,30 @@
             <q-input type="tel" outlined v-model="form.phone2"  dense placeholder="Ingrese otro teléfono"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Dirección
-            <q-input outlined v-model="form.direccion"  dense placeholder="Ingrese la dirección"
+            Ciudad
+            <q-input outlined v-model="form.direccion"  dense placeholder="Ingrese la ciudad"
             error-message="Este campo es requerido" :error="$v.form.direccion.$error" @blur="$v.form.direccion.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Pais
-            <q-select standout outlined dense color="black" class="q-field__native row items-center bgn" v-model="form.pais" map-options option-label="name" option-value="val" :options="paises" label="Selecciona un pais"
-             error-message="Este campo es requerido" :error="$v.form.pais.$error" @blur="$v.form.pais.$touch()" />
+            <q-select v-model="provincia" outlined dense color="black" :options="provincias" label="Seleccione un pais" map-options option-label="name" emit-value @input="localidadPorId(provincia.id)" error-message="Este campo es requerido" :error="$v.provincia.$error" @blur="$v.provincia.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Provincia
-            <q-select v-model="provincia" outlined dense color="black" :options="provincias" label="Seleccione la provincia" map-options option-label="name" emit-value @input="localidadPorId(provincia.id)" error-message="Este campo es requerido" :error="$v.provincia.$error" @blur="$v.provincia.$touch()"/>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Localidad
-            <q-select v-model="localidad" outlined dense color="black" :options="localidades" label="Seleccione la localidad" map-options option-label="nameFull" emit-value @input="form.cp = localidad.cp"
-            error-message="Este campo es requerido" :error="$v.localidad.$error" @blur="$v.localidad.$touch()">
+            Tipo de moneda
+            <q-select v-model="localidad" outlined dense color="black" :options="localidades" label="Seleccione una moneda" map-options option-label="name" emit-value @input="form.cp = localidad.cp">
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-italic text-grey-8">
-                    Selecciona una provincia
+                    Seleccione una moneda
                   </q-item-section>
                 </q-item>
               </template>
             </q-select>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+          <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             C.P
             <q-input readonly outlined v-model="form.cp"  dense placeholder="Ingrese el C.P" error-message="Este campo es requerido" :error="$v.form.cp.$error" @blur="$v.form.cp.$touch()"/>
-          </div>
+          </div> -->
           <div v-if="operario === true" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Condiciones Laborales
             <q-input outlined v-model="form.condiciones_lab" dense placeholder="Ingrese las condiciones"
@@ -223,7 +217,7 @@ export default {
       dni: { required: requiredIf(function () { return !this.inmobiliaria }) },
       inmobiliaria_id: { required: requiredIf(function () { return this.comercial === true }) },
       lider_id: { required: requiredIf(function () { return this.operario === true }) },
-      cp: { required },
+      // cp: { required },
       direccion: { required },
       phone1: { required },
       email: { required, email },

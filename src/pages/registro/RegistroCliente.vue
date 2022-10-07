@@ -6,7 +6,14 @@
     <div class="q-my-lg text-center text-h5 text-bold text-grey-8">{{!edit ? 'NUEVO CLIENTE' : 'EDICIÓN DE CLIENTE'}}</div>
 
     <q-card class="q-pa-md">
-
+      <div class="q-pa-md">
+        Seleccione una imagen
+         <q-file outlined v-model="imagen" style="max-width: 200px" label="img de 800x800 px">
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+         </q-file>
+      </div>
       <div class="row items-center">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Tipo de cliente
@@ -53,36 +60,30 @@
             <q-input type="tel" outlined v-model="form.phone2"  dense placeholder="Ingrese otro teléfono"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Dirección
-            <q-input outlined v-model="form.direccion"  dense placeholder="Ingrese la dirección"
+            Ciudad
+            <q-input outlined v-model="form.direccion"  dense placeholder="Ingrese la ciudad"
             error-message="Este campo es requerido" :error="$v.form.direccion.$error" @blur="$v.form.direccion.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Pais
-            <q-select standout outlined dense color="black" class="q-field__native row items-center bgn" v-model="form.pais" map-options option-label="name" option-value="val" :options="paises" label="Selecciona un pais"
-             error-message="Este campo es requerido" :error="$v.form.pais.$error" @blur="$v.form.pais.$touch()" />
+            <q-select v-model="provincia" outlined dense color="black" :options="provincias" label="Seleccione un pais" map-options option-label="name" emit-value @input="localidadPorId(provincia.id)" error-message="Este campo es requerido" :error="$v.provincia.$error" @blur="$v.provincia.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Provincia
-            <q-select v-model="provincia" outlined dense color="black" :options="provincias" label="Seleccione la provincia" map-options option-label="name" emit-value
-            @input="localidadPorId(provincia.id)" error-message="Este campo es requerido" :error="$v.provincia.$error" @blur="$v.provincia.$touch()"/>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            Localidad
-            <q-select v-model="localidad" outlined dense color="black" :options="localidades" label="Seleccione la localidad" map-options option-label="nameFull" emit-value @input="form.cp = localidad.cp">
+            Tipo de moneda
+            <q-select v-model="localidad" outlined dense color="black" :options="localidades" label="Seleccione una moneda" map-options option-label="name" emit-value @input="form.cp = localidad.cp">
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-italic text-grey-8">
-                    Seleccione una provincia
+                    Seleccione una moneda
                   </q-item-section>
                 </q-item>
               </template>
             </q-select>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+          <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             C.P
             <q-input readonly outlined v-model="form.cp"  dense placeholder="Ingrese el C.P"/>
-          </div>
+          </div> -->
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Cuenta corriente
             <q-input outlined v-model="form.cuenta"  dense placeholder="Ingrese la cuenta"/>
@@ -117,16 +118,9 @@
 // import { ref } from 'vue'
 import { required, email, requiredIf } from 'vuelidate/lib/validators'
 export default {
-  // setup () {
-  //   const pais = ref(null),
-  //   const paises = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'],
-  //   return {
-  //     pais,
-  //     paises
-  //   }
-  // },
   data () {
     return {
+      imagen: null,
       provincia: null,
       localidad: null,
       juridico: false,
@@ -136,20 +130,6 @@ export default {
       pais: {},
       provincias: [],
       localidades: [],
-      paises: [
-        { val: 1, name: 'Argentina' },
-        { val: 2, name: 'Chile' },
-        { val: 3, name: 'Colombia' },
-        { val: 4, name: 'Uruguay' },
-        { val: 5, name: 'Ecuador' },
-        { val: 6, name: 'Estados Unidos' },
-        { val: 7, name: 'Republica Dominicana' },
-        { val: 8, name: 'Mexico' },
-        { val: 9, name: 'Peru' },
-        { val: 10, name: 'Ecuador' },
-        { val: 11, name: 'España' },
-        { val: 12, name: 'otro' }
-      ],
       tipos: [
         { val: 1, name: 'Persona natural' },
         { val: 2, name: 'Persona jurídica' }
@@ -158,7 +138,6 @@ export default {
   },
   validations: {
     form: {
-      pais: { required },
       type: { required },
       dni: { required },
       direccion: { required },

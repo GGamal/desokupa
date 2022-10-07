@@ -293,9 +293,9 @@ export default {
         { name: 'full_name', label: 'Nombre', align: 'left', field: 'full_name', sortable: true },
         { name: 'dni', label: 'DNI', align: 'center', field: 'dni' },
         { name: 'phone1', label: 'Teléfono', align: 'center', field: 'phone1' },
-        { name: 'direccion', label: 'Dirección', align: 'center', field: 'direccion' },
-        { name: 'provincia', label: 'Provincia', align: 'center', field: 'provincia' },
-        { name: 'localidad', label: 'Localidad', align: 'center', field: 'localidad' },
+        { name: 'provincia', label: 'Pais', align: 'center', field: 'provincia' },
+        { name: 'direccion', label: 'Ciudad', align: 'center', field: 'direccion' },
+        { name: 'localidad', label: 'Moneda', align: 'center', field: 'localidad' },
         { name: 'email', label: 'Email', align: 'center', field: 'email' },
         { name: 'actions', label: 'Opciones', align: 'center', field: 'actions' }
       ],
