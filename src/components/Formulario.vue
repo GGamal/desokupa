@@ -37,21 +37,21 @@
             </q-field>
           </div> -->
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            <q-field label="Provincia" outlined dense stack-label>
+            <q-field label="Pais" outlined dense stack-label>
               <template v-slot:control>
                 <div class="self-center full-width no-outline" tabindex="0">{{form.provincia_name}}</div>
               </template>
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            <q-field label="Localidad" outlined dense stack-label>
+            <q-field label="Moneda" outlined dense stack-label>
               <template v-slot:control>
                 <div class="self-center full-width no-outline" tabindex="0">{{form.localidad_name}}</div>
               </template>
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            <q-field label="Dirección" outlined dense stack-label>
+            <q-field label="Ciudad" outlined dense stack-label>
               <template v-slot:control>
                 <div class="self-center full-width no-outline" tabindex="0">{{form.direccion}}</div>
               </template>

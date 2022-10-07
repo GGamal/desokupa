@@ -8,11 +8,18 @@
     <q-card class="q-pa-md">
       <div class="q-pa-md">
         Seleccione una imagen
-         <q-file outlined v-model="imagen" style="max-width: 200px" label="img de 800x800 px">
+        <q-form>
+          <q-file outlined v-model="form.imagen" style="max-width: 200px" label="800x800px">
+            <template v-slot:before>
+            </template>
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
          </q-file>
+         <div>
+            <q-btn label="Submit" type="submit" color="primary" />
+         </div>
+        </q-form>
       </div>
       <div class="row items-center">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
@@ -42,8 +49,8 @@
             <q-input outlined v-model="form.last_name"  dense placeholder="Ingrese los apellidos"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-            {{!juridico ? 'Numero de identificacion' : 'CIF'}}
-            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el numero de identificacion' : 'Ingrese el CIF'"
+            {{!juridico ? 'Numero de identificacion' : 'Numero identificador'}}
+            <q-input outlined v-model="form.dni"  dense :placeholder="!juridico ? 'Ingrese el numero de identificacion' : 'Ingrese su numero identificador'"
             error-message="Este campo es requerido" :error="$v.form.dni.$error" @blur="$v.form.dni.$touch()"/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
@@ -115,7 +122,6 @@
   </div>
 </template>
 <script>
-// import { ref } from 'vue'
 import { required, email, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
@@ -138,6 +144,7 @@ export default {
   },
   validations: {
     form: {
+      // imagen: { required },
       type: { required },
       dni: { required },
       direccion: { required },
@@ -211,6 +218,7 @@ export default {
       this.$v.form.$touch()
       this.$v.provincia.$touch()
       this.$v.apoderado.$touch()
+      this.form.imagen = this.imagen
       if (!this.$v.form.$error && !this.$v.apoderado.$error && !this.$v.provincia.$error) {
         this.$q.loading.show({
           message: 'Registrando...'

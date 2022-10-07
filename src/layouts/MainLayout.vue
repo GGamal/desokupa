@@ -87,13 +87,13 @@ export default {
           items: [
             {
               icon: 'people',
-              label: 'Listado de Clientes',
-              ruta: '/clientes'
+              label: 'Nuevo cliente',
+              ruta: '/registro/cliente'
             },
             {
               icon: 'people',
-              label: 'Nuevo cliente',
-              ruta: '/registro/cliente'
+              label: 'Listado de Clientes',
+              ruta: '/clientes'
             }
             // {
             //   icon: 'business',
@@ -214,6 +214,11 @@ export default {
           items: [
             {
               icon: 'people',
+              label: 'Nuevo usuario',
+              ruta: '/registro/usuario'
+            },
+            {
+              icon: 'people',
               label: 'Listado de usuarios',
               ruta: '/usuarios'
             },
@@ -221,11 +226,6 @@ export default {
               icon: 'payment',
               label: 'Formas de pago',
               ruta: '/formas_de_pago'
-            },
-            {
-              icon: 'people',
-              label: 'Nuevo usuario',
-              ruta: '/registro/usuario'
             }
           ]
         }
