@@ -202,22 +202,22 @@ export default {
         //     }
         //   ]
         // },
-        {
-          icon: 'analytics',
-          label: 'Módulo Analitica',
-          items: [
-            {
-              icon: 'trending_up',
-              label: 'Ventas',
-              ruta: '/analiticas/ventas'
-            },
-            {
-              icon: 'trending_down',
-              label: 'Gastos',
-              ruta: '/analiticas/gastos'
-            }
-          ]
-        },
+        // {
+        //   icon: 'analytics',
+        //   label: 'Módulo Analitica',
+        //   items: [
+        //     {
+        //       icon: 'trending_up',
+        //       label: 'Ventas',
+        //       ruta: '/analiticas/ventas'
+        //     },
+        //     {
+        //       icon: 'trending_down',
+        //       label: 'Gastos',
+        //       ruta: '/analiticas/gastos'
+        //     }
+        //   ]
+        // },
         {
           icon: 'settings',
           label: 'Módulo Configuraciones',
