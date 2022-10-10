@@ -16,7 +16,7 @@
          </q-file>
       </div>
       <div class="row justify-center">
-        <p style="font-size: 12px;">Imagen de 800x800px</p>
+        <p style="font-size: 12px;">Imagen de 800x800 px</p>
       </div>
       <div class="row items-center">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
