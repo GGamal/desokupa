@@ -291,12 +291,12 @@ export default {
       ],
       columns: [
         { name: 'full_name', label: 'Nombre', align: 'left', field: 'full_name', sortable: true },
-        { name: 'dni', label: 'DNI', align: 'center', field: 'dni' },
+        { name: 'dni', label: 'Numero identificador', align: 'center', field: 'dni' },
+        { name: 'email', label: 'Email', align: 'center', field: 'email' },
         { name: 'phone1', label: 'Teléfono', align: 'center', field: 'phone1' },
         { name: 'provincia', label: 'Pais', align: 'center', field: 'provincia' },
-        { name: 'direccion', label: 'Ciudad', align: 'center', field: 'direccion' },
-        { name: 'localidad', label: 'Moneda', align: 'center', field: 'localidad' },
-        { name: 'email', label: 'Email', align: 'center', field: 'email' },
+        // { name: 'direccion', label: 'Ciudad', align: 'center', field: 'direccion' },
+        // { name: 'localidad', label: 'Moneda', align: 'center', field: 'localidad' },
         { name: 'actions', label: 'Opciones', align: 'center', field: 'actions' }
       ],
       showState: false,

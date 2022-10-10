@@ -91,7 +91,7 @@ export default {
               ruta: '/registro/cliente'
             },
             {
-              icon: 'people',
+              icon: 'supervisor_account',
               label: 'Listado de Clientes',
               ruta: '/clientes'
             }
@@ -112,13 +112,23 @@ export default {
               ruta: '/Crear/presupuestos'
             },
             {
-              icon: 'request_quote',
+              icon: 'receipt',
               label: 'lista Presupuesto',
               ruta: '/presupuestos'
             },
             {
-              icon: 'request_quote',
-              label: 'Generar pdf contrato',
+              icon: 'receipt',
+              label: 'Lista de contratos',
+              ruta: '/contratos_aprobados'
+            },
+            {
+              icon: 'arrow_circle_down',
+              label: 'Generar PDF presupuesto',
+              ruta: ''
+            },
+            {
+              icon: 'arrow_circle_down',
+              label: 'Generar PDF contrato',
               ruta: ''
             },
             {
@@ -138,17 +148,17 @@ export default {
             }
           ]
         },
-        {
-          icon: 'format_align_left',
-          label: 'Módulo Contratos',
-          items: [
-            {
-              icon: 'format_list_bulleted',
-              label: 'Todos los contratos',
-              ruta: '/contratos_aprobados'
-            }
-          ]
-        },
+        // {
+        //   icon: 'format_align_left',
+        //   label: 'Módulo Contratos',
+        //   items: [
+        //     {
+        //       icon: 'format_list_bulleted',
+        //       label: 'Todos los contratos',
+        //       ruta: '/contratos_aprobados'
+        //     }
+        //   ]
+        // },
         {
           icon: 'pending',
           label: 'Módulo Operativos',
@@ -181,17 +191,17 @@ export default {
         //     }
         //   ]
         // },
-        {
-          icon: 'gavel',
-          label: 'Módulo Juridico',
-          items: [
-            {
-              icon: 'format_list_bulleted',
-              label: 'Todos los contratos',
-              ruta: '/juridicos'
-            }
-          ]
-        },
+        // {
+        //   icon: 'gavel',
+        //   label: 'Módulo Juridico',
+        //   items: [
+        //     {
+        //       icon: 'format_list_bulleted',
+        //       label: 'Todos los contratos',
+        //       ruta: '/juridicos'
+        //     }
+        //   ]
+        // },
         {
           icon: 'analytics',
           label: 'Módulo Analitica',
@@ -218,7 +228,7 @@ export default {
               ruta: '/registro/usuario'
             },
             {
-              icon: 'people',
+              icon: 'supervisor_account',
               label: 'Listado de usuarios',
               ruta: '/usuarios'
             },
@@ -226,6 +236,16 @@ export default {
               icon: 'payment',
               label: 'Formas de pago',
               ruta: '/formas_de_pago'
+            },
+            {
+              icon: 'add_shopping_cart',
+              label: 'Nuevo Servicio',
+              ruta: '/NuevoServicio'
+            },
+            {
+              icon: 'shopping_cart',
+              label: 'Listado de productos',
+              ruta: ''
             }
           ]
         }

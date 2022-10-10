@@ -137,7 +137,7 @@
               </template>
             </q-select>
           </div>
-          <div>
+          <!-- <div>
             Inmuebles
             <q-select
               outlined
@@ -172,7 +172,7 @@
                 </q-item>
               </template>
             </q-select>
-          </div>
+          </div> -->
           <q-btn
             style="width: 100%"
             no-caps
@@ -196,7 +196,7 @@ export default {
       formaPago: null,
       tab: null,
       cliente: null,
-      inmuebles: null,
+      // inmuebles: null,
       filter: '',
       form: {},
       dataFormulario: {},
@@ -205,7 +205,7 @@ export default {
       data: [],
       clientes: [],
       allClients: [],
-      inmueblesOption: [],
+      // inmueblesOption: [],
       baseu: '',
       role: null,
       listCustomers: null,
@@ -221,7 +221,7 @@ export default {
       valor: { required: requiredIf(function () { return this.form.type === 1 }) }
     },
     cliente: { required },
-    inmuebles: { required },
+    // inmuebles: { required },
     formaPago: { required }
   },
   mounted () {
@@ -274,13 +274,13 @@ export default {
     },
     crearContrato () {
       this.cliente = null
-      this.inmuebles = null
+      // this.inmuebles = null
       this.formaPago = null
-      this.inmueblesOptio = []
+      // this.inmueblesOptio = []
       this.form = {}
       this.$v.form.$reset()
       this.$v.cliente.$reset()
-      this.$v.inmuebles.$reset()
+      // this.$v.inmuebles.$reset()
       this.$v.formaPago.$reset()
       this.dialog = true
     },
@@ -288,8 +288,8 @@ export default {
       this.$v.form.$touch()
       this.$v.formaPago.$touch()
       this.$v.cliente.$touch()
-      this.$v.inmuebles.$touch()
-      if (!this.$v.form.$error && !this.$v.formaPago.$error && !this.$v.cliente.$error && !this.$v.inmuebles.$error) {
+      // this.$v.inmuebles.$touch()
+      if (!this.$v.form.$error && !this.$v.formaPago.$error && !this.$v.cliente.$error) {
         this.$q.loading.show({
           message: 'Generando Presupuesto...'
         })
@@ -302,7 +302,7 @@ export default {
         }
         this.form.formaPago = this.formaPago._id
         this.form.cliente_id = this.cliente._id
-        this.form.inmuebles = this.inmuebles
+        // this.form.inmuebles = this.inmuebles
         this.form.listo = false
         this.form.status = 0
         this.form.adjuntos = []

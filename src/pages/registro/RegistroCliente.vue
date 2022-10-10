@@ -8,7 +8,6 @@
     <q-card class="q-pa-md">
       <div class="q-pa-md">
         Seleccione una imagen
-        <q-form>
           <q-file outlined v-model="form.imagen" style="max-width: 200px" label="800x800px">
             <template v-slot:before>
             </template>
@@ -16,10 +15,6 @@
               <q-icon name="attach_file" />
             </template>
          </q-file>
-         <div>
-            <q-btn label="Submit" type="submit" color="primary" />
-         </div>
-        </q-form>
       </div>
       <div class="row items-center">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
@@ -91,10 +86,10 @@
             C.P
             <q-input readonly outlined v-model="form.cp"  dense placeholder="Ingrese el C.P"/>
           </div> -->
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+          <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
             Cuenta corriente
             <q-input outlined v-model="form.cuenta"  dense placeholder="Ingrese la cuenta"/>
-          </div>
+          </div> -->
       </div>
       <div v-if="juridico">
         <div class="text-bold q-pt-lg">ADMINISTRADOR / APODERADO</div>
@@ -105,8 +100,17 @@
                 error-message="Este campo es requerido" :error="$v.apoderado.name.$error" @blur="$v.apoderado.name.$touch()"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
-                Apellidos
-                <q-input outlined v-model="apoderado.last_name"  dense placeholder="Ingrese los apellidos"/>
+                Apellido
+                <q-input outlined v-model="apoderado.last_name"  dense placeholder="Ingrese el apellido"
+                error-message="Este campo es requerido" :error="$v.apoderado.last_name.$error" @blur="$v.apoderado.last_name.$touch()"/>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+                Email
+                <q-input type="tel" outlined v-model="apoderado.email"  dense placeholder="Ingrese su Email"/>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
+                Cargo
+                <q-input type="tel" outlined v-model="apoderado.cargo"  dense placeholder="Ingrese su cargo"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
                 Telefono
@@ -144,7 +148,7 @@ export default {
   },
   validations: {
     form: {
-      // imagen: { required },
+      imagen: { required },
       type: { required },
       dni: { required },
       direccion: { required },
@@ -153,7 +157,11 @@ export default {
     },
     provincia: { required },
     apoderado: {
-      name: { required: requiredIf(function () { return this.juridico }) }
+      name: { required: requiredIf(function () { return this.juridico.name }) },
+      last_name: { required: requiredIf(function () { return this.juridico.last_name }) },
+      email: { required: requiredIf(function () { return this.juridico.email }) },
+      cargo: { required: requiredIf(function () { return this.juridico.cargo }) },
+      phone: { required: requiredIf(function () { return this.juridico.phone }) }
     }
   },
   mounted () {
@@ -218,7 +226,7 @@ export default {
       this.$v.form.$touch()
       this.$v.provincia.$touch()
       this.$v.apoderado.$touch()
-      this.form.imagen = this.imagen
+      const formData = new FormData()
       if (!this.$v.form.$error && !this.$v.apoderado.$error && !this.$v.provincia.$error) {
         this.$q.loading.show({
           message: 'Registrando...'
@@ -232,7 +240,10 @@ export default {
         if (this.form.type === 2) {
           this.form.apoderado = this.apoderado
         }
-        this.$api.post('register_cliente', this.form).then(res => {
+        formData.append('imagen', this.form.imagen)
+        formData.append('form', JSON.stringify(this.form))
+        console.log(this.form.imagen)
+        this.$api.post('register_cliente', formData).then(res => {
           if (res) {
             this.$q.notify({
               message: 'Cliente registrado con éxito',
