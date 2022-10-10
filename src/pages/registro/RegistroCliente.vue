@@ -6,15 +6,17 @@
     <div class="q-my-lg text-center text-h5 text-bold text-grey-8">{{!edit ? 'NUEVO CLIENTE' : 'EDICIÓN DE CLIENTE'}}</div>
 
     <q-card class="q-pa-md">
-      <div class="q-pa-md">
-        Seleccione una imagen
-          <q-file outlined v-model="form.imagen" style="max-width: 200px" label="800x800px">
+      <div class=" row justify-center">
+          <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Foto de perfil" filled bottom-slots>
             <template v-slot:before>
             </template>
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
          </q-file>
+      </div>
+      <div class="row justify-center">
+        <p style="font-size: 12px;">Imagen de 800x800px</p>
       </div>
       <div class="row items-center">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-sm q-px-xs">
