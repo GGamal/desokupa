@@ -36,6 +36,7 @@
       no-data-label="No hay contratos probados"
       no-results-label="No hay contratos aprobados"
       class="q-mt-sm"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-amount="props">
         <q-td :props="props">
@@ -59,6 +60,9 @@ export default {
         { name: 'description', label: 'Descripción', align: 'center', field: 'description' },
         { name: 'date', label: 'Fecha', align: 'center', field: 'date' }
       ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      },
       total: null
     }
   },

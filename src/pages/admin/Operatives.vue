@@ -44,6 +44,7 @@
       table-header-class="text-black"
       no-data-label="No hay contratos"
       no-results-label="No hay contratos"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-type="props">
         <q-td :props="props">
@@ -228,7 +229,10 @@ export default {
         { name: 'status', label: 'Estado', align: 'center', field: 'status' },
         { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   validations: {

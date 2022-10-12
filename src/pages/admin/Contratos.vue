@@ -47,6 +47,7 @@
       no-data-label="No hay contratos"
       no-results-label="No hay contratos"
       class="no-shadow"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-type="props">
         <q-td :props="props">
@@ -77,17 +78,17 @@
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
           <div class="row no-wrap justify-center q-gutter-xs">
-            <q-btn label="Ver" size="sm" color="orange" icon="visibility" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" color="orange" icon="visibility" dense rounded push no-wrap style="width:90px"
             @click="$router.push('/contrato/' + props.row._id)"/>
-            <q-btn v-if="props.row.status === 2" label="Disponible" size="sm" icon="done" color="green" dense rounded push no-wrap style="width:90px"
+            <q-btn v-if="props.row.status === 2" size="sm" icon="done" color="green" dense rounded push no-wrap style="width:90px"
             @click="cambiar(props.row)"/>
-            <q-btn label="Subir Documento" size="sm" icon="upload_file" color="grey-8" dense rounded push no-wrap style="width:130px"
+            <q-btn size="sm" icon="upload_file" color="grey-8" dense rounded push no-wrap style="width:130px"
             @click="otherAdjunto(props.row)"/>
-            <q-btn label="PDF" size="sm" icon="picture_as_pdf" color="brown" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" icon="picture_as_pdf" color="brown" dense rounded push no-wrap style="width:90px"
             @click="generarPdf(props.row)"/>
-            <q-btn v-if="props.row.type === 1" label="Valor" icon="euro" size="sm" color="primary" dense rounded push no-wrap style="width:90px"
+            <q-btn v-if="props.row.type === 1" icon="euro" size="sm" color="primary" dense rounded push no-wrap style="width:90px"
             @click="generarValor(props.row)"/>
-            <q-btn v-if="props.row.status !== 8" label="Generar Gasto" icon="money_off" size="sm" color="red" dense rounded push no-wrap style="width:110px"
+            <q-btn v-if="props.row.status !== 8" icon="money_off" size="sm" color="red" dense rounded push no-wrap style="width:110px"
             @click="setExpenseShow(props.row)"/>
           </div>
         </q-td>
@@ -249,7 +250,10 @@ export default {
         { name: 'paymentStatus', label: 'Estado de pago', align: 'center', field: 'paymentStatus' },
         { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   validations: {

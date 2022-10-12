@@ -166,8 +166,6 @@ export default {
     if (this.$route.params.id) {
       this.edit = true
       this.getCliente(this.$route.params.id)
-    } else {
-      this.edit = false
     }
   },
   methods: {

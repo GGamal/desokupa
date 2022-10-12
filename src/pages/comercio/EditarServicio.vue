@@ -4,7 +4,7 @@
           <img src="desocupa 1.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
-        <div class="text-grey-8 text-center text-h5 q-mt-md">Nuevo producto</div>
+        <div class="text-grey-8 text-center text-h5 q-mt-md">Editar producto</div>
         <div class="q-px-lg q-pb-xl" >
           <div style="font-size: 18px;">
             Nombre
@@ -103,8 +103,8 @@ export default {
       this.$v.form.$touch()
       this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
         if (res) {
-          // this.dialog = true
-          // this.getFormasPago()
+          this.dialog = false
+          this.getFormasPago()
           this.$q.notify({
             message: 'Forma de pago actualizada con éxito',
             color: 'positive'
@@ -137,6 +137,20 @@ export default {
       } else {
         this.data = this.allData
       }
+    },
+    getFormasPago () {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      this.$api.get('productos').then(res => {
+        if (res) {
+          this.allData = res
+          this.data = this.allData
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
     }
   }
 }

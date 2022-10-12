@@ -49,6 +49,7 @@
       no-data-label="No hay clientes registrados"
       no-results-label="No hay clientes"
       class="no-shadow"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
@@ -300,7 +301,10 @@ export default {
         { name: 'actions', label: 'Opciones', align: 'center', field: 'actions' }
       ],
       showState: false,
-      state: []
+      state: [],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   validations: {

@@ -52,7 +52,7 @@
             </q-expansion-item>
           </q-list>
         </q-scroll-area>
-      <div class="text-white text-center absolute-bottom q-mb-sm">Desokupa Canarias v1.0</div>
+      <div class="text-white text-center absolute-bottom q-mb-sm">EICHE App v1.0</div>
       </q-drawer>
 
     <q-page-container>
@@ -109,27 +109,17 @@ export default {
             {
               icon: 'request_quote',
               label: 'Crear Presupuesto',
-              ruta: '/Crear/presupuestos'
+              ruta: '/crear/presupuestos'
             },
             {
               icon: 'receipt',
-              label: 'lista Presupuesto',
+              label: 'lista de Presupuestos',
               ruta: '/presupuestos'
             },
             {
               icon: 'receipt',
               label: 'Lista de contratos',
               ruta: '/contratos_aprobados'
-            },
-            {
-              icon: 'arrow_circle_down',
-              label: 'Generar PDF presupuesto',
-              ruta: ''
-            },
-            {
-              icon: 'arrow_circle_down',
-              label: 'Generar PDF contrato',
-              ruta: ''
             },
             {
               icon: 'payments',
@@ -240,12 +230,12 @@ export default {
             {
               icon: 'add_shopping_cart',
               label: 'Nuevo Servicio',
-              ruta: '/NuevoServicio'
+              ruta: '/nuevo_servicio'
             },
             {
               icon: 'shopping_cart',
-              label: 'Listado de productos',
-              ruta: ''
+              label: 'Listado de servicios',
+              ruta: '/lista_servicios'
             }
           ]
         }

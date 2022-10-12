@@ -49,8 +49,12 @@
       no-data-label="No hay presupuestos registrados"
       no-results-label="No hay presupuestos"
       class="no-shadow"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-type="props">
+        <q-td :props="props">
+          <div class="text-center">{{props.row.name ? props.row.name + '€' : '---'}}</div>
+        </q-td>
         <q-td :props="props">
           <div class="text-center">{{props.row.type === 1 ? 'Contrato Desokupa' : 'Contrato 365'}}</div>
         </q-td>
@@ -71,14 +75,18 @@
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
           <div class="row no-wrap justify-center q-gutter-xs">
-            <q-btn label="Ver" size="sm" icon="visibility" color="orange" dense rounded push no-wrap style="width:90px"
+            <q-btn  size="sm" icon="visibility" color="orange" dense rounded push no-wrap style="width:90px"
             @click="ver(props.row)"/>
-            <q-btn v-if="props.row.status === 0" label="Aprobar" icon="thumb_up_off_alt" color="green" size="sm" dense rounded no-wrap style="width:90px"
+            <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
+            @click="$router.push('/editar_presupuesto/' + props.row._id)"/>
+            <q-btn v-if="props.row.status === 0" icon="thumb_up_off_alt" color="green" size="sm" dense rounded no-wrap style="width:90px"
             @click="cambiar(true, props.row)"/>
-            <q-btn v-if="props.row.status === 0" label="Rechazar" icon="thumb_down_off_alt" color="red" size="sm" dense rounded push no-wrap style="width:90px"
+            <q-btn v-if="props.row.status === 0" icon="thumb_down_off_alt" color="red" size="sm" dense rounded push no-wrap style="width:90px"
             @click="cambiar(false, props.row)"/>
-            <q-btn label="PDF" size="sm" icon="picture_as_pdf" color="brown" dense rounded push no-wrap style="width:90px"
+            <q-btn size="sm" icon="picture_as_pdf" color="brown" dense rounded push no-wrap style="width:90px"
             @click="makePdf(props.row)"/>
+            <q-btn size="sm" icon="delete" color="negative" dense rounded push no-wrap style="width:90px"
+            @click="eliminar(props.row)"/>
           </div>
         </q-td>
       </template>
@@ -250,7 +258,8 @@ export default {
         { val: 8, name: 'Finalizados' } */
       ],
       columns: [
-        { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
+        { name: 'name', label: 'Foto', align: 'center', field: 'name' },
+        // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
         { name: 'cliente', label: 'Cliente', align: 'center', field: 'cliente' },
         { name: 'type', label: 'Tipo', align: 'center', field: 'type' },
         { name: 'pagoInfo', label: 'Forma de pago', align: 'center', field: 'pagoInfo' },
@@ -258,7 +267,10 @@ export default {
         { name: 'status', label: 'Estado', align: 'center', field: 'status' },
         { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   validations: {
@@ -277,6 +289,22 @@ export default {
     this.getClientes()
   },
   methods: {
+    eliminar (data) {
+      this.$q.dialog({
+        title: 'Confirma',
+        message: '¿Seguro deseas eliminar este usuario?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.$api.put('contrato_delete/' + data._id).then(res => {
+          if (res) {
+            this.getUsuarios()
+          }
+        })
+      }).onCancel(() => {
+        // cancel
+      })
+    },
     filterFn (val, update) {
       if (val === '') {
         update(() => {

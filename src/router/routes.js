@@ -25,14 +25,17 @@ const routes = [
       { path: '/comercial/:id', component: () => import('pages/inmobiliaria/Comercial.vue') },
       // Comercial
       { path: '/presupuestos', component: () => import('pages/comercio/Contratos.vue') },
-      { path: '/Crear/presupuestos', component: () => import('pages/comercio/CrearPresupuesto.vue') },
-      { path: '/NuevoServicio', component: () => import('pages/comercio/NuevoServicio.vue') },
+      { path: '/editar_presupuesto/:id', component: () => import('pages/comercio/EditarPresupuesto.vue') },
+      { path: '/crear/presupuestos', component: () => import('pages/comercio/CrearPresupuesto.vue') },
+      { path: '/nuevo_servicio', component: () => import('pages/comercio/NuevoServicio.vue') },
+      { path: '/lista_servicios', component: () => import('pages/comercio/ListaServicios.vue') },
+      { path: '/editar_servicio/:id', component: () => import('pages/comercio/EditarServicio.vue') },
       { path: '/presupuestos/desokupa', component: () => import('pages/comercio/Desokupa.vue') },
       { path: '/presupuestos/365', component: () => import('pages/comercio/Contrato365.vue') },
       { path: '/clientes', component: () => import('pages/comercio/Clientes.vue') },
       { path: '/inmuebles', component: () => import('pages/comercio/Inmuebles.vue') },
       { path: '/registro/cliente', component: () => import('pages/registro/RegistroCliente.vue') },
-      { path: '/editar/cliente/:id', component: () => import('pages/registro/RegistroCliente.vue') },
+      { path: '/editar/cliente/:id', component: () => import('pages/registro/EditarCliente.vue') },
       { path: '/registro/inmueble', component: () => import('pages/registro/RegistroInmueble.vue') },
       { path: '/editar/inmueble/:id', component: () => import('pages/registro/RegistroInmueble.vue') },
       // Legal
@@ -50,7 +53,7 @@ const routes = [
       // Generales
       { path: '/contrato/:id', component: () => import('pages/Contrato.vue') },
       { path: '/registro/usuario', component: () => import('pages/registro/RegistroUsuario.vue') },
-      { path: '/editar/usuario/:id', component: () => import('pages/registro/RegistroUsuario.vue') }
+      { path: '/editar/usuario/:id', component: () => import('pages/registro/EditarUsuario.vue') }
     ]
   },
   { path: '/login', component: () => import('pages/Login.vue') },

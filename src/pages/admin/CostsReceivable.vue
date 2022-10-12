@@ -31,6 +31,7 @@
       no-data-label="No hay contratos probados"
       no-results-label="No hay contratos aprobados"
       class="q-mt-sm"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-type="props">
         <q-td :props="props">
@@ -125,7 +126,10 @@ export default {
         { name: 'paymentStatus', label: 'Estado de pago', align: 'center', field: 'paymentStatus' },
         { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   mounted () {

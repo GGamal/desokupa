@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class="text-grey-8 text-center text-h5 q-mt-md">
-          Generar Presupuesto
+          Editar Presupuesto
         </div>
         <div class="q-px-lg q-pb-xl">
           <div>
@@ -39,7 +39,7 @@
             </q-select>
           </div>
           <div>
-            Contrato con fecha de expiracion
+            Tipo de contrato
             <q-select
               outlined
               dense

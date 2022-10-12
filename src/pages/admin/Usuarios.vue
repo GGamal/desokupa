@@ -49,6 +49,7 @@
       no-data-label="No hay usuarios registrados"
       no-results-label="No hay usuarios"
       class="no-shadow"
+      :pagination.sync="pagination"
     >
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
@@ -195,7 +196,10 @@ export default {
         // { name: 'direccion', label: 'Ciudad', align: 'center', field: 'direccion' },
         // { name: 'localidad', label: 'Moneda', align: 'center', field: 'localidad' },
         { name: 'actions', label: 'Opciones', align: 'center', field: 'actions' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 50 // current rows per page being displayed
+      }
     }
   },
   mounted () {
