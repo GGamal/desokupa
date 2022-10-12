@@ -234,7 +234,7 @@ export default {
             },
             {
               icon: 'shopping_cart',
-              label: 'Listado de servicios',
+              label: 'Lista de servicios',
               ruta: '/lista_servicios'
             }
           ]

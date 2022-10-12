@@ -27,3 +27,4 @@
 [1011/144324.194:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\Google\Chrome\settings.dat: Acceso denegado. (0x5)
 [1012/083103.012:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\Google\Chrome\settings.dat: Acceso denegado. (0x5)
 [1012/083103.223:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\Google\Chrome\settings.dat: Acceso denegado. (0x5)
+[1012/160014.369:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\Google\Chrome\settings.dat: Acceso denegado. (0x5)

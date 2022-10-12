@@ -189,7 +189,6 @@
 </template>
 <script>
 import { openURL } from 'quasar'
-import env from '../../env'
 import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
@@ -229,10 +228,11 @@ export default {
     formaPago: { required }
   },
   mounted () {
-    this.getContratos()
-    this.baseu = env.apiUrl + 'pdf_file/'
-    this.getFormasPago()
-    this.getClientes()
+    console.log(this.$route.params.id)
+    if (this.$route.params.id) {
+      this.edit = true
+      this.getCliente(this.$route.params.id)
+    }
   },
   methods: {
     handleCustomerChange () {
@@ -279,6 +279,30 @@ export default {
         if (res) {
           this.clientes = [...res]
           this.listCustomers = [...res]
+        }
+      })
+    },
+    async getCliente (id) {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      await this.$api.get('cliente_by_id/' + id).then(res => {
+        if (res) {
+          this.form = res
+          if (res.type === 2) {
+            this.juridico = true
+            this.apoderado = res.apoderado
+          }
+          if (res.provincia_id) {
+            this.provincia = res.provincia
+            this.localidades = res.provincia.localidades
+          }
+          if (res.localidad_id) {
+            this.localidad = res.localidad
+          }
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
         }
       })
     },

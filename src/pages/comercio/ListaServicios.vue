@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md">
     <div>
-      <div class="text-h5 text-grey-10 text-weight-medium">Listado de Productos</div>
+      <div class="text-h5 text-grey-10 text-weight-medium">Lista de servicios</div>
       <div class="text-grey-9">
-        {{`En la siguiente tabla puedes ver todas las formas de pago\n
+        {{`En la siguiente tabla puedes ver todas los servicios\n
         configuradas en el sistema. Esta información la utilizaremos\n
         para crear Presupuestos en el módulo Ventas. Recuerda\n
         que en la columna Acción puedes editar o eliminar un\n
@@ -15,7 +15,7 @@
       <div class="row q-gutter-sm">
         <div class="row items-center">
           <div class="q-mr-sm text-weight-regular text-grey-10">Puedes filtar todas las columnas con un mismo filtro.</div>
-          <q-input dense filled debounce="300" color="primary" v-model="filter" placeholder="Buscar productos">
+          <q-input dense filled debounce="300" color="primary" v-model="filter" placeholder="Buscar servicios">
             <template v-slot:after>
               <q-btn  color="primary" icon="search" />
             </template>
@@ -46,8 +46,8 @@
       :filter="filter"
       table-class="text-grey-9"
       table-header-class="text-black"
-      no-data-label="No hay formas registradas"
-      no-results-label="No hay formas"
+      no-data-label="No hay servicios registrados"
+      no-results-label="No hay servicios"
       class="no-shadow"
       :pagination.sync="pagination"
     >
@@ -87,8 +87,8 @@ export default {
       data: [],
       columns: [
         { name: 'name', label: 'Nombre', align: 'left', field: 'name', sortable: true },
-        { name: 'cuota', label: 'Categoria', align: 'center', field: 'cuota' },
-        { name: 'subcategoria', label: 'SubCategoria', align: 'center', field: 'cuota' },
+        { name: 'categoria', label: 'Categorias', align: 'center', field: 'categoria' },
+        { name: 'descripcion', label: 'Descripcion', align: 'center', field: 'descripcion' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
       ],
       pagination: {
@@ -127,78 +127,6 @@ export default {
         this.valorCuotas.push(0)
       }
       this.listo = true
-    },
-    guardar () {
-      this.$v.form.$touch()
-      if (!this.$v.form.$error) {
-        var total = 0
-        for (let i = 0; i < this.valorCuotas.length; i++) {
-          total = total + this.valorCuotas[i]
-        }
-        if (total === 100) {
-          this.$q.loading.show({
-            message: 'Guardando forma de pago...'
-          })
-          this.form.valorCuotas = this.valorCuotas
-          this.$api.post('nuevo_producto', this.form).then(res => {
-            if (res) {
-              this.dialog = false
-              this.getFormasPago()
-              this.$q.notify({
-                message: 'Forma de pago guardada con éxito',
-                color: 'positive'
-              })
-              this.$q.loading.hide()
-            } else {
-              this.$q.loading.hide()
-            }
-          })
-        } else {
-          this.$q.dialog({
-            title: 'Atención',
-            message: 'El total de los porcentajes debe ser el 100%',
-            persistent: false
-          }).onOk(() => {
-            // volver
-          })
-        }
-      }
-    },
-    actualizar () {
-      this.$v.form.$touch()
-      if (!this.$v.form.$error) {
-        var total = 0
-        for (let i = 0; i < this.valorCuotas.length; i++) {
-          total = total + this.valorCuotas[i]
-        }
-        if (total === 100) {
-          this.$q.loading.show({
-            message: 'Actualizando servicio'
-          })
-          this.form.valorCuotas = this.valorCuotas
-          this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
-            if (res) {
-              this.dialog = false
-              this.getFormasPago()
-              this.$q.notify({
-                message: 'Forma de pago actualizada con éxito',
-                color: 'positive'
-              })
-              this.$q.loading.hide()
-            } else {
-              this.$q.loading.hide()
-            }
-          })
-        } else {
-          this.$q.dialog({
-            title: 'Atención',
-            message: 'El total de los porcentajes debe ser el 100%',
-            persistent: false
-          }).onOk(() => {
-            // volver
-          })
-        }
-      }
     },
     eliminar (data) {
       this.$q.dialog({
