@@ -1,10 +1,11 @@
 <template>
   <div class="q-pa-md">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="desocupa 1.png" style="width:150px" />
+          <img src="logoblanco.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
-        <div class="text-grey-8 text-center text-h5 q-mt-md">Nuevo producto</div>
+        <div class="q-my-lg text-center text-h5 text-bold text-grey-8">EDITAR SERVICIO</div>
+        <!-- <div class="text-grey-8 text-center text-h5 q-mt-md">Nuevo producto</div> -->
         <div class="q-px-lg q-pb-xl" >
           <div style="font-size: 18px;">
             Nombre
@@ -22,18 +23,21 @@
               map-options
               counter
               hint="Servicios seleccionados"
-              style="width: 250px"
+              style="width: 280px"
               option-label="name"
               option-value="name"
+              label-color="grey-1"
+              bg-color="grey-8"
+              use-chips
             />
           </div>
           </div>
           <div class=" row justify-center q-mt-md">
-           <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Adjuntar imagen" filled bottom-slots>
+           <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Adjuntar imagen" filled bottom-slots label-color="grey-1" bg-color="grey-8">
              <template v-slot:before>
              </template>
              <template v-slot:prepend>
-               <q-icon name="attach_file" />
+               <q-icon name="attach_file" color="grey-1"/>
              </template>
            </q-file>
          </div>
@@ -80,6 +84,14 @@ export default {
       subhosting: false,
       imagen: { required },
       descripcion: { required }
+    }
+  },
+  mounted () {
+    this.getProvincias()
+    console.log(this.$route.params.id)
+    if (this.$route.params.id) {
+      this.edit = true
+      this.getCliente(this.$route.params.id)
     }
   },
   methods: {

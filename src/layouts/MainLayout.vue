@@ -57,7 +57,7 @@
 
     <q-page-container>
       <div class="row justify-center q-mt-lg">
-        <q-card class="bg-primary q-pa-lg row justify-between items-center" style="width: 97%">
+        <q-card class="bg-primary q-pa-lg row justify-between items-center" style="width: 98.5%">
           <div class="text-h5 text-white">{{selectedModule}}</div>
           <q-icon color="white" :name="icon" size="lg"/>
         </q-card>

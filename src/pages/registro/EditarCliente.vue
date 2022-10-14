@@ -7,11 +7,11 @@
 
     <q-card class="q-pa-md">
       <div class=" row justify-center">
-          <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Foto de perfil" filled bottom-slots>
+          <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Foto de perfil" filled bottom-slots label-color="grey-1" bg-color="grey-8">
             <template v-slot:before>
             </template>
             <template v-slot:prepend>
-              <q-icon name="attach_file" />
+              <q-icon name="attach_file" color="grey-1" />
             </template>
          </q-file>
       </div>

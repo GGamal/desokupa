@@ -22,7 +22,7 @@
               option-label="full_name"
               @input="handleCustomerChange()"
             >
-              <template v-slot:no-option>
+              <template v-slot:no-option @click="impuesto()">
                 <q-item>
                   <q-item-section class="text-italic text-grey">
                     Aún no hay clientes registrados
@@ -38,8 +38,8 @@
               </template>
             </q-select>
           </div>
-          <div>
-            Tipo de contrato
+          <!-- <div>
+            Contrato con fecha de expiracion
             <q-select
               outlined
               dense
@@ -63,38 +63,7 @@
                 </q-item>
               </template>
             </q-select>
-          </div>
-          <div v-if="form.type === 1">
-            Valor
-            <q-input
-              v-model="moneda"
-              type="number"
-              outlined
-              v-model.number="form.valor"
-              dense
-              error-message="Este campo es requerido"
-              :error="$v.form.valor.$error"
-              @blur="$v.form.valor.$touch()"
-              label="Valor del contrato" stack-label
-            >
-            <template v-slot:prepend>
-              <div class="self-center full-width no-outline" tabindex="0">
-                 <span style="font-size: 14px; color: black">{{moneda}}</span>
-              </div>
-            </template>
-            </q-input>
-          </div>
-          <div v-if="form.type === 2" class="q-pb-md">
-            Valor
-            <q-field label="Valor del contrato" outlined dense stack-label>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">
-                   <span>{{moneda}}</span>
-                  {{ 365 }}
-                </div>
-              </template>
-            </q-field>
-          </div>
+          </div> -->
           <div>
             Forma de pago
             <q-select
@@ -139,6 +108,105 @@
                 </q-item>
               </template>
             </q-select>
+          </div>
+          <div>
+            Servicio
+            <q-select
+              outlined
+              dense
+              color="black"
+              v-model="servicio"
+              :options="servicios"
+              label="Selecciona un servicio"
+              map-options
+              error-message="Este campo es requerido"
+              :error="$v.servicio.$error"
+              @blur="$v.servicio.$touch()"
+              option-label="name"
+              multiple
+              counter
+              use-chips
+              filled
+            >
+              <template v-slot:no-option>
+                <q-item>
+                  <q-item-section class="text-italic text-grey">
+                    Aún no hay servicios
+                  </q-item-section>
+                </q-item>
+              </template>
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section>
+                    <q-item-label v-html="scope.opt.name" />
+                    <div class="row text-caption text-grey-9">
+                      <div>{{ scope.opt.categoria + "" }}</div>
+                      <div
+                        v-for="(item, index) in scope.opt.categorias"
+                        :key="index"
+                        class="q-px-xs"
+                      >
+                      </div>
+                    </div>
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+          </div>
+          <div>
+            Valor
+            <q-input
+              v-model="moneda"
+              type="number"
+              outlined
+              v-model.number="form.valor"
+              dense
+              error-message="Este campo es requerido"
+              :error="$v.form.valor.$error"
+              @blur="$v.form.valor.$touch()"
+              label="Valor del contrato" stack-label
+              @input="impuesto()"
+            >
+            <template v-slot:prepend>
+              <div class="self-center full-width no-outline" tabindex="0">
+                 <span style="font-size: 14px; color: black">{{moneda}}</span>
+              </div>
+            </template>
+            </q-input>
+          </div>
+          <div v-if="moneda === 'CLP'">
+            Impuestos:
+            <span>CLP IVA 19% del total </span>
+            <q-field label="Total con impuesto agregado" outlined dense stack-label>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{moneda}}:   {{total}}</div>
+              </template>
+            </q-field>
+          </div>
+          <div v-if="moneda === 'USD'">
+            Impuestos:
+            <span>Paypal 5,4 % + USD 0,30</span>
+            <q-field label="Total con impuesto agregado" outlined dense stack-label>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0"> {{moneda}}:   {{total}}</div>
+              </template>
+            </q-field>
+          </div>
+          <div style="max-width: 300px" class="q-my-md">
+            Contrato con fecha de expiracion
+            <q-input filled v-model="fecha" mask="date" :rules="['date']" error-message="Este campo es requerido" :error="$v.fecha.$error" @blur="$v.fecha.$touch()">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="fecha">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
           </div>
           <!-- <div>
             Inmuebles
@@ -189,21 +257,28 @@
 </template>
 <script>
 import { openURL } from 'quasar'
+import env from '../../env'
 import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
+      total: null,
+      impuestos: null,
       moneda: '',
       dialog: false,
       filterSelec: null,
       formaPago: null,
+      servicio: null,
       tab: null,
       cliente: null,
+      fecha: ('2022'),
+      edit: true,
       // inmuebles: null,
       filter: '',
       form: {},
       dataFormulario: {},
       formasPago: [],
+      servicios: [],
       allData: [],
       data: [],
       clientes: [],
@@ -211,30 +286,65 @@ export default {
       // inmueblesOption: [],
       baseu: '',
       role: null,
-      listCustomers: null,
-      types: [
-        { val: 1, name: 'Contrato Desokupa' },
-        { val: 2, name: 'Contrato 365' }
-      ]
+      listCustomers: null
+      // types: [
+      //   { val: 1, name: 'Contrato Desokupa' },
+      //   { val: 2, name: 'Contrato 365' }
+      // ]
     }
   },
   validations: {
     form: {
-      type: { required },
+      // type: { required },
       valor: { required: requiredIf(function () { return this.form.type === 1 }) }
     },
     cliente: { required },
     // inmuebles: { required },
-    formaPago: { required }
+    formaPago: { required },
+    servicio: { required },
+    fecha: { required },
+    impuestos: { required },
+    total: { required }
   },
   mounted () {
-    console.log(this.$route.params.id)
-    if (this.$route.params.id) {
-      this.edit = true
-      this.getCliente(this.$route.params.id)
-    }
+    this.getServicios()
+    this.getContratos()
+    this.baseu = env.apiUrl + 'pdf_file/'
+    this.getFormasPago()
+    this.getClientes()
+    this.impuesto()
+    // if (this.$route.params.id) {
+    //   this.edit = true
+    //   this.getContratos(this.$route.params.id)
+    // }
   },
   methods: {
+    impuesto () {
+      console.log('entre a la funcion impuesto')
+      const moneda = this.moneda
+      const valor = this.form.valor
+      const total = this.form.valor
+      this.total = this.form.valor
+      if (moneda === 'CLP') {
+        console.log('es CLP iva')
+        const iva = valor * 19 / 100
+        console.log('este es el iva', iva)
+        const total = valor + iva
+        console.log('este es el total', total)
+        this.total = total
+        this.impuestos = iva
+      }
+      if (moneda === 'USD') {
+        console.log('es usd paypal')
+        const iva = valor * 5.4 / 100 + 0.30
+        console.log('este es impuesto paypal', iva)
+        const total = valor + iva
+        console.log('este es el total', total)
+        this.total = total
+        this.impuestos = iva
+      }
+      console.log('este total es sin iva', total)
+    },
     handleCustomerChange () {
       const data = this.cliente.localidad
       console.log('data:', data)
@@ -274,6 +384,13 @@ export default {
         }
       })
     },
+    getServicios () {
+      this.$api.get('productos').then(res => {
+        if (res) {
+          this.servicios = res
+        }
+      })
+    },
     getClientes () {
       this.$api.get('clientes').then(res => {
         if (res) {
@@ -282,48 +399,34 @@ export default {
         }
       })
     },
-    async getCliente (id) {
-      this.$q.loading.show({
-        message: 'Cargando datos...'
-      })
-      await this.$api.get('cliente_by_id/' + id).then(res => {
-        if (res) {
-          this.form = res
-          if (res.type === 2) {
-            this.juridico = true
-            this.apoderado = res.apoderado
-          }
-          if (res.provincia_id) {
-            this.provincia = res.provincia
-            this.localidades = res.provincia.localidades
-          }
-          if (res.localidad_id) {
-            this.localidad = res.localidad
-          }
-          this.$q.loading.hide()
-        } else {
-          this.$q.loading.hide()
-        }
-      })
-    },
     crearContrato () {
       this.cliente = null
       // this.inmuebles = null
       this.formaPago = null
+      this.servicio = null
+      this.fecha = null
       // this.inmueblesOptio = []
       this.form = {}
       this.$v.form.$reset()
       this.$v.cliente.$reset()
       // this.$v.inmuebles.$reset()
       this.$v.formaPago.$reset()
+      this.$v.servicio.$reset()
+      this.$v.fecha.$reset()
+      this.$v.total.$reset()
+      this.$v.impuestos.$reset()
       this.dialog = true
     },
     generar () {
       this.$v.form.$touch()
       this.$v.formaPago.$touch()
       this.$v.cliente.$touch()
+      this.$v.servicio.$touch()
+      this.$v.fecha.$touch()
+      this.$v.total.$touch()
+      this.$v.impuestos.$touch()
       // this.$v.inmuebles.$touch()
-      if (!this.$v.form.$error && !this.$v.formaPago.$error && !this.$v.cliente.$error) {
+      if (!this.$v.form.$error && !this.$v.formaPago.$error && !this.$v.cliente.$error && !this.$v.servicio.$error && !this.$v.fecha.$error) {
         this.$q.loading.show({
           message: 'Generando Presupuesto...'
         })
@@ -336,10 +439,19 @@ export default {
         }
         this.form.formaPago = this.formaPago._id
         this.form.cliente_id = this.cliente._id
+        this.form.servicio = this.servicio
+        this.form.fecha = this.fecha
+        this.form.total = this.total
+        this.form.impuestos = this.impuestos
+        this.form.cliente = this.cliente
+        this.form.email = this.cliente.email
+        this.form.imagen = this.cliente.imagen
+        this.form.phone = this.cliente.phone1
+        this.form.pais = this.cliente.provincia
         // this.form.inmuebles = this.inmuebles
         this.form.listo = false
         this.form.status = 0
-        this.form.adjuntos = []
+        // this.form.adjuntos = []
         this.$api.post('generar_link', this.form).then(res => {
           if (res) {
             this.dialog = false

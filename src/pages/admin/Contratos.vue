@@ -49,14 +49,14 @@
       class="no-shadow"
       :pagination.sync="pagination"
     >
-      <template v-slot:body-cell-type="props">
+      <!-- <template v-slot:body-cell-type="props">
         <q-td :props="props">
           <div class="text-center">{{props.row.type === 1 ? 'Contrato Desokupa' : 'Contrato 365'}}</div>
         </q-td>
-      </template>
-      <template v-slot:body-cell-valor="props">
+      </template> -->
+      <template v-slot:body-cell-total="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.valor ? props.row.valor + '€' : '---'}}</div>
+          <div class="text-center">{{props.row.total ? props.row.total : '---'}} {{props.row.moneda}}</div>
         </q-td>
       </template>
       <template v-slot:body-cell-status="props">
@@ -151,7 +151,7 @@
     <q-dialog v-model="newDocument">
       <q-card class="q-pa-none" style="width:100%">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="desocupa 1.png" style="width:150px" />
+          <img src="logoblanco.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
         <div class="text-grey-8 text-center text-h5 q-mt-md">Añadir Archivo</div>
@@ -181,7 +181,7 @@
     <q-dialog v-model="show">
       <q-card class="q-pa-none" style="width:100%">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="desocupa 1.png" style="width:150px" />
+          <img src="logoblanco.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
         <div class="text-grey-8 text-center text-h5 q-my-md">Generar Gasto</div>
@@ -238,17 +238,18 @@ export default {
         { val: 2, name: '365' }
       ],
       columns: [
-        { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
-        { name: 'inmobiliaria', label: 'Inmobiliaria', align: 'center', field: 'inmobiliaria', sortable: true },
-        { name: 'comercial', label: 'Comercial', align: 'center', field: 'comercial', sortable: true },
+        // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
+        // { name: 'inmobiliaria', label: 'Inmobiliaria', align: 'center', field: 'inmobiliaria', sortable: true },
+        // { name: 'comercial', label: 'Comercial', align: 'center', field: 'comercial', sortable: true },
         { name: 'clientName', label: 'Cliente', align: 'center', field: 'clientName', sortable: true },
         { name: 'adminName', label: 'Creado por', align: 'center', field: 'adminName', sortable: true },
-        { name: 'type', label: 'Tipo', align: 'center', field: 'type' },
+        // { name: 'type', label: 'Tipo', align: 'center', field: 'type' },
         { name: 'pagoInfo', label: 'Forma de pago', align: 'center', field: 'pagoInfo' },
-        { name: 'valor', label: 'Valor', align: 'center', field: 'valor' },
+        { name: 'total', label: 'Valor', align: 'center', field: 'total' },
         { name: 'status', label: 'Estado', align: 'center', field: 'status' },
         { name: 'paymentStatus', label: 'Estado de pago', align: 'center', field: 'paymentStatus' },
         { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
+        { name: 'fecha', label: 'Fecha de expiracion', align: 'center', field: 'fecha' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
       ],
       pagination: {
@@ -274,6 +275,40 @@ export default {
     this.getContratos()
   },
   methods: {
+    getClientes () {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      this.$api.get('clientes').then(res => {
+        if (res) {
+          this.allData = res
+          this.data = this.allData
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
+    },
+    getProvincias () {
+      this.$api.get('provincias').then(res => {
+        if (res) {
+          this.provincias = res
+        }
+      })
+    },
+    localidadPorId (id) {
+      this.$q.loading.show({
+        message: 'Buscando localidades...'
+      })
+      this.$api.get('localidadesPorId/' + id).then(res => {
+        if (res) {
+          this.localidades = res
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
+    },
     getContratos () {
       this.$q.loading.show({
         message: 'Cargando datos...'

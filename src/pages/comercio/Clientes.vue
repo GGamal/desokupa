@@ -69,7 +69,7 @@
     <q-dialog v-model="dialog">
       <q-card class="q-pa-none" style="width:100%">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="desocupa 1.png" style="width:150px" />
+          <img src="logoblanco.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
         <div class="row items-center q-px-md q-pb-xl">
@@ -77,7 +77,7 @@
             Tipo de cliente
             <q-field outlined dense stack-label>
               <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{cliente.type === 1 ? 'Persona física' : cliente.type === 2 ? 'Persona jurídica' : ''}}</div>
+                <div class="self-center full-width no-outline" tabindex="0">{{cliente.type === 1 ? 'Persona natural' : cliente.type === 2 ? 'Persona jurídica' : ''}}</div>
               </template>
             </q-field>
           </div>
@@ -98,7 +98,7 @@
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            DNI
+            Numero de identificaion
             <q-field outlined dense stack-label>
               <template v-slot:control>
                 <div class="self-center full-width no-outline" tabindex="0">{{cliente.dni}}</div>
@@ -130,23 +130,7 @@
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            Dirección
-            <q-field outlined dense stack-label>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{cliente.direccion}}</div>
-              </template>
-            </q-field>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            C.P
-            <q-field outlined dense stack-label>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{cliente.cp}}</div>
-              </template>
-            </q-field>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            Provincia
+            Pais
             <q-field outlined dense stack-label>
               <template v-slot:control>
                 <div class="self-center full-width no-outline" tabindex="0">{{cliente.provincia}}</div>
@@ -154,18 +138,18 @@
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            Localidad
+            Ciudad
             <q-field outlined dense stack-label>
               <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{cliente.localidad}}</div>
+                <div class="self-center full-width no-outline" tabindex="0">{{cliente.direccion}}</div>
               </template>
             </q-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-grey-9 q-mt-md q-px-xs">
-            Cuenta corriente
+            Tipo de moneda
             <q-field outlined dense stack-label>
               <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{cliente.cuenta}}</div>
+                <div class="self-center full-width no-outline" tabindex="0">{{cliente.localidad}}</div>
               </template>
             </q-field>
           </div>

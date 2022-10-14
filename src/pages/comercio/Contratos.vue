@@ -51,17 +51,27 @@
       class="no-shadow"
       :pagination.sync="pagination"
     >
+      <template v-slot:body-cell-imagen="props">
+        <q-td :props="props">
+          <div class="text-center"><img src='this.url'/></div>
+        </q-td>
+      </template>
       <template v-slot:body-cell-type="props">
         <q-td :props="props">
           <div class="text-center">{{props.row.name ? props.row.name + '€' : '---'}}</div>
         </q-td>
-        <q-td :props="props">
+        <!-- <q-td :props="props">
           <div class="text-center">{{props.row.type === 1 ? 'Contrato Desokupa' : 'Contrato 365'}}</div>
+        </q-td> -->
+      </template>
+      <template v-slot:body-cell-total="props">
+        <q-td :props="props">
+          <div class="text-center">{{props.row.total ? props.row.total  : '---'}} {{props.row.moneda}}</div>
         </q-td>
       </template>
-      <template v-slot:body-cell-valor="props">
+      <template v-slot:body-cell-impuestos="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.valor ? props.row.valor + '€' : '---'}}</div>
+          <div class="text-center">{{props.row.impuestos ? props.row.impuestos  : '---'}} {{props.row.moneda}}</div>
         </q-td>
       </template>
       <template v-slot:body-cell-status="props">
@@ -224,9 +234,12 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
+      url: '',
+      moneda: null,
       dialog: false,
       filterSelec: null,
       formaPago: null,
+      servicio: null,
       tab: null,
       cliente: null,
       inmuebles: null,
@@ -234,6 +247,7 @@ export default {
       form: {},
       dataFormulario: {},
       formasPago: [],
+      servicios: [],
       allData: [],
       data: [],
       clientes: [],
@@ -258,14 +272,16 @@ export default {
         { val: 8, name: 'Finalizados' } */
       ],
       columns: [
-        { name: 'name', label: 'Foto', align: 'center', field: 'name' },
+        { name: 'imagen', label: 'Foto', align: 'center', field: 'imagen' },
         // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
         { name: 'cliente', label: 'Cliente', align: 'center', field: 'cliente' },
-        { name: 'type', label: 'Tipo', align: 'center', field: 'type' },
-        { name: 'pagoInfo', label: 'Forma de pago', align: 'center', field: 'pagoInfo' },
-        { name: 'valor', label: 'Valor', align: 'center', field: 'valor' },
+        { name: 'email', label: 'Email', align: 'center', field: 'email' },
+        { name: 'phone1', label: 'Telefono', align: 'center', field: 'phone1' },
+        { name: 'provincia', label: 'Pais', align: 'center', field: 'provincia' },
+        { name: 'total', label: 'Valor del contrato', align: 'center', field: 'total' },
+        { name: 'impuestos', label: 'Impuesto agregado', align: 'center', field: 'impuestos' },
         { name: 'status', label: 'Estado', align: 'center', field: 'status' },
-        { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
+        { name: 'fecha', label: 'Fecha de expiracion', align: 'center', field: 'fecha' },
         { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
       ],
       pagination: {
@@ -280,19 +296,22 @@ export default {
     },
     cliente: { required },
     inmuebles: { required },
-    formaPago: { required }
+    formaPago: { required },
+    servicio: { required }
   },
   mounted () {
     this.getContratos()
     this.baseu = env.apiUrl + 'pdf_file/'
+    this.url = env.apiUrl + this.email
     this.getFormasPago()
     this.getClientes()
+    this.getServicios()
   },
   methods: {
     eliminar (data) {
       this.$q.dialog({
         title: 'Confirma',
-        message: '¿Seguro deseas eliminar este usuario?',
+        message: '¿Seguro deseas eliminar este presupuesto?',
         cancel: true,
         persistent: true
       }).onOk(() => {
@@ -338,6 +357,13 @@ export default {
         }
       })
     },
+    getServicios () {
+      this.$api.get('productos').then(res => {
+        if (res) {
+          this.servicios = res
+        }
+      })
+    },
     getClientes () {
       this.$api.get('clientes').then(res => {
         if (res) {
@@ -350,50 +376,15 @@ export default {
       this.cliente = null
       this.inmuebles = null
       this.formaPago = null
-      this.inmueblesOptio = []
+      this.servicio = null
+      // this.inmueblesOptio = []
       this.form = {}
       this.$v.form.$reset()
       this.$v.cliente.$reset()
-      this.$v.inmuebles.$reset()
+      // this.$v.inmuebles.$reset()
       this.$v.formaPago.$reset()
+      this.$v.servicio.$reset()
       this.dialog = true
-    },
-    generar () {
-      this.$v.form.$touch()
-      this.$v.formaPago.$touch()
-      this.$v.cliente.$touch()
-      this.$v.inmuebles.$touch()
-      if (!this.$v.form.$error && !this.$v.formaPago.$error && !this.$v.cliente.$error && !this.$v.inmuebles.$error) {
-        this.$q.loading.show({
-          message: 'Generando Presupuesto...'
-        })
-        if (this.form.type === 2) {
-          this.form.valor = 365
-        }
-        this.form.cuotas = []
-        for (let i = 0; i < this.formaPago.valorCuotas.length; i++) {
-          this.form.cuotas.push({ val: this.formaPago.valorCuotas[i], listo: false })
-        }
-        this.form.formaPago = this.formaPago._id
-        this.form.cliente_id = this.cliente._id
-        this.form.inmuebles = this.inmuebles
-        this.form.listo = false
-        this.form.status = 0
-        this.form.adjuntos = []
-        this.$api.post('generar_link', this.form).then(res => {
-          if (res) {
-            this.dialog = false
-            this.getContratos()
-            this.$q.notify({
-              message: 'Presupuesto generado con éxito',
-              color: 'positive'
-            })
-            this.$q.loading.hide()
-          } else {
-            this.$q.loading.hide()
-          }
-        })
-      }
     },
     async makePdf (row) {
       this.$q.loading.show({
