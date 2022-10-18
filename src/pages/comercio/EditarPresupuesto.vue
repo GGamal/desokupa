@@ -512,6 +512,38 @@ export default {
       } else {
         this.data = this.allData
       }
+    },
+    async actualizar () {
+      this.$v.formaPago.$touch()
+      this.$v.servicio.$touch()
+      this.$v.cliente.$touch()
+      this.$v.fecha.$touch()
+      this.$v.form.$touch()
+      if (!this.$v.servicio.$error && !this.$v.fecha.$error && !this.$v.cliente.$error && !this.$v.formaPago.$error && !this.$v.form.$error) {
+        this.$q.loading.show({
+          message: 'Guardando...'
+        })
+        this.form.cliente_id = this.cliente._id
+        this.form.servicio = this.servicio
+        this.form.fecha = this.fecha
+        this.form.formaPago = this.formaPago
+        await this.$api.post('/editar_presupuesto/' + this.form._id, this.form).then(res => {
+          if (res) {
+            this.$q.notify({
+              message: 'Datos guardados correctamente',
+              color: 'positive'
+            })
+            this.$q.loading.hide()
+          } else {
+            this.$q.loading.hide()
+          }
+        })
+      } else {
+        this.$q.notify({
+          message: 'Debe ingresar todos los datos requeridos',
+          color: 'negative'
+        })
+      }
     }
   }
 }

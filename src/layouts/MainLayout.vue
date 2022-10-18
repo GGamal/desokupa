@@ -3,8 +3,8 @@
     <q-header elevated class="bg-white q-py-sm">
       <div class="row justify-between text-grey-8 no-wrap">
         <div class="col-6 row items-center no-wrap">
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" color="grey-8" />
-          <img src="logo.png" style="width:140px" />
+          <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" color="grey-8" /> -->
+          <img src="logo.png" style="width:140px; padding-left: 10px" />
         </div>
         <div class="col-6 q-px-sm justify-end row items-center no-wrap">
           <!-- <img src="avatar gris 1.png" style="width:50px" /> -->
