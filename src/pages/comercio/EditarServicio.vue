@@ -117,7 +117,7 @@ export default {
       this.$api.post('nuevo_producto', formData).then(res => {
         if (res) {
           this.$q.notify({
-            message: 'Producto creado',
+            message: 'Servicio creado',
             color: 'positive'
           })
           this.$q.loading.hide()
@@ -131,29 +131,13 @@ export default {
       this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
         if (res) {
           this.$q.notify({
-            message: 'Forma de pago actualizada con éxito',
+            message: 'Servicio actualizado con éxito',
             color: 'positive'
           })
           this.$q.loading.hide()
         } else {
           this.$q.loading.hide()
         }
-      })
-    },
-    eliminar (data) {
-      this.$q.dialog({
-        title: 'Confirma',
-        message: '¿Seguro deseas eliminar esta forma de pago?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.$api.put('eliminar_producto/' + data._id).then(res => {
-          if (res) {
-            this.getFormasPago()
-          }
-        })
-      }).onCancel(() => {
-        // Cancel
       })
     },
     filtrar (val) {
