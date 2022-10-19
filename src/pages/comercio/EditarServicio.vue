@@ -87,34 +87,27 @@ export default {
     }
   },
   mounted () {
-    this.getProvincias()
     console.log(this.$route.params.id)
     if (this.$route.params.id) {
       this.edit = true
-      this.getCliente(this.$route.params.id)
+      this.getServicio(this.$route.params.id)
     }
   },
   methods: {
-    // guardar () {
-    //   this.$v.form.$touch()
-    //   this.$v.name.$touch()
-    //   this.$v.apoderado.$touch()
-    //   const formData = new FormData()
-    //   formData.append('imagen', this.form.imagen)
-    //   formData.append('form', JSON.stringify(this.form))
-    //   console.log(this.form.imagen)
-    //   this.$api.post('nuevo_producto', formData).then(res => {
-    //     if (res) {
-    //       this.$q.notify({
-    //         message: 'Servicio registrado con éxito',
-    //         color: 'positive'
-    //       })
-    //       this.$q.loading.hide()
-    //       this.$router.go(-1)
-    //     } else {
-    //       this.$q.loading.hide()
-    //     }
-    //   })
+    async getServicio (id) {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      await this.$api.get('servicio_by_id/' + id).then(res => {
+        console.log('entre a servicoID')
+        if (res) {
+          this.form = res
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
+    },
     guardar () {
       this.$v.form.$touch()
       const formData = new FormData()
@@ -135,10 +128,14 @@ export default {
     },
     actualizar () {
       this.$v.form.$touch()
+      // if (this.provincia) {
+      //   this.form.name = this.name
+      // }
+      // if (this.localidad) {
+      //   this.form.categoria = this.categoria
+      // }
       this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
         if (res) {
-          // this.dialog = true
-          // this.getFormasPago()
           this.$q.notify({
             message: 'Forma de pago actualizada con éxito',
             color: 'positive'

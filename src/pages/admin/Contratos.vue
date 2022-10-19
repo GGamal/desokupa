@@ -181,7 +181,7 @@
     <q-dialog v-model="show">
       <q-card class="q-pa-none" style="width:100%">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="logoblanco.png" style="width:150px" />
+          <img src="logoblanco.png" style="width:180px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
         <div class="text-grey-8 text-center text-h5 q-my-md">Generar Gasto</div>
