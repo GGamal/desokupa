@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class="text-grey-8 text-center text-h5 q-mt-md">
-          Generar Presupuesto
+          Editar Presupuesto
         </div>
         <div class="q-px-lg q-pb-xl">
           <div>
@@ -12,7 +12,7 @@
               outlined
               dense
               color="black"
-              v-model="cliente"
+              v-model="form.cliente"
               :options="listCustomers"
               label="Seleccione el cliente"
               map-options
@@ -115,7 +115,7 @@
               outlined
               dense
               color="black"
-              v-model="servicio"
+              v-model="form.servicio"
               :options="servicios"
               label="Selecciona un servicio"
               map-options
@@ -201,11 +201,11 @@
           </div>
           <div style="max-width: 300px" class="q-my-md">
             Contrato con fecha de expiracion
-            <q-input filled v-model="fecha" mask="date" :rules="['date']" error-message="Este campo es requerido" :error="$v.fecha.$error" @blur="$v.fecha.$touch()">
+            <q-input filled v-model="form.fecha" mask="date" :rules="['date']" error-message="Este campo es requerido" :error="$v.fecha.$error" @blur="$v.fecha.$touch()">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date v-model="fecha" :locale="myLocale">
+                    <q-date v-model="form.fecha" :locale="myLocale">
                       <div class="row items-center justify-end">
                         <q-btn v-close-popup label="Close" color="primary" flat />
                       </div>
@@ -272,6 +272,7 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
+      edit: false,
       activarimpuesto: false,
       total: null,
       impuestos: 0,
@@ -333,8 +334,48 @@ export default {
     this.getFormasPago()
     this.getClientes()
     this.impuesto()
+    if (this.$route.params.id) {
+      this.edit = true
+      this.getPresupuestoID(this.$route.params.id)
+    }
   },
   methods: {
+    async getPresupuestoID (id) {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      await this.$api.get('presupuesto_by_id/' + id).then(res => {
+        console.log('entre a Presupuesto ID')
+        if (res) {
+          console.log('entre al if')
+          this.form = res
+          this.total = res
+          this.formaPago = res
+          if (res.provincia_id) {
+            this.provincia = res.provincia
+            this.localidades = res.provincia.localidades
+          }
+          if (res.localidad_id) {
+            this.localidad = res.localidad
+          }
+          // this.impuestos = res
+          // this.total = res
+          // this.cliente = res
+          // this.servicio = res
+          // this.formaPago = res
+          // if (res.provincia_id) {
+          //   this.provincia = res.provincia
+          //   this.localidades = res.provincia.localidades
+          // }
+          // if (res.localidad_id) {
+          //   this.localidad = res.localidad
+          // }
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
+    },
     impuesto () {
       const activarimpuesto = this.activarimpuesto
       const moneda = this.moneda

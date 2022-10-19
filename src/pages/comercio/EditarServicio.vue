@@ -128,12 +128,6 @@ export default {
     },
     actualizar () {
       this.$v.form.$touch()
-      // if (this.provincia) {
-      //   this.form.name = this.name
-      // }
-      // if (this.localidad) {
-      //   this.form.categoria = this.categoria
-      // }
       this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
         if (res) {
           this.$q.notify({
