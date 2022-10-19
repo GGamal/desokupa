@@ -203,7 +203,7 @@ export default {
       this.$q.loading.show({
         message: 'Cargando datos...'
       })
-      this.$api.post('user_by_id', { rol: [1, 2, 3, 4, 5, 6] }).then(res => {
+      this.$api.post('user_by_rol', { rol: [1, 2, 3, 4, 5, 6] }).then(res => {
         if (res) {
           this.allData = res
           this.data = this.allData
