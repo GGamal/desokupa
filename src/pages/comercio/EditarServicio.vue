@@ -32,18 +32,6 @@
             />
           </div>
           </div>
-          <div class=" row justify-center q-mt-md">
-           <q-file outlined v-model="form.imagen" style="max-width: 200px" label="Adjuntar imagen" filled bottom-slots label-color="grey-1" bg-color="grey-8">
-             <template v-slot:before>
-             </template>
-             <template v-slot:prepend>
-               <q-icon name="attach_file" color="grey-1"/>
-             </template>
-           </q-file>
-         </div>
-      <div class="row justify-center">
-        <p style="font-size: 12px;">Imagen de 800x800 px</p>
-      </div>
       <div class="row justify-center"><q-input v-model="form.descripcion" type="textarea" dense outlined class="q-pa-md row justify-center "   cols="100" rows="4"></q-input></div>
           <q-btn style="width:100%" no-caps label="Guardar" color="primary" size="lg"
           @click="!edit ? guardar() : actualizar()" />
@@ -57,7 +45,6 @@ import { required } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
-      imagen: null,
       listo: false,
       edit: false,
       verForma: false,
@@ -78,53 +65,40 @@ export default {
     form: {
       name: { required },
       categoria: { required },
-      subdevapps: false,
-      submarketing: false,
-      subservicioit: false,
-      subhosting: false,
-      imagen: { required },
       descripcion: { required }
     }
   },
   mounted () {
-    this.getProvincias()
     console.log(this.$route.params.id)
     if (this.$route.params.id) {
       this.edit = true
-      this.getCliente(this.$route.params.id)
+      this.getServicio(this.$route.params.id)
     }
   },
   methods: {
-    // guardar () {
-    //   this.$v.form.$touch()
-    //   this.$v.name.$touch()
-    //   this.$v.apoderado.$touch()
-    //   const formData = new FormData()
-    //   formData.append('imagen', this.form.imagen)
-    //   formData.append('form', JSON.stringify(this.form))
-    //   console.log(this.form.imagen)
-    //   this.$api.post('nuevo_producto', formData).then(res => {
-    //     if (res) {
-    //       this.$q.notify({
-    //         message: 'Servicio registrado con éxito',
-    //         color: 'positive'
-    //       })
-    //       this.$q.loading.hide()
-    //       this.$router.go(-1)
-    //     } else {
-    //       this.$q.loading.hide()
-    //     }
-    //   })
+    async getServicio (id) {
+      this.$q.loading.show({
+        message: 'Cargando datos...'
+      })
+      await this.$api.get('servicio_by_id/' + id).then(res => {
+        console.log('entre a servicoID')
+        if (res) {
+          this.form = res
+          this.$q.loading.hide()
+        } else {
+          this.$q.loading.hide()
+        }
+      })
+    },
     guardar () {
       this.$v.form.$touch()
       const formData = new FormData()
-      formData.append('imagen', this.form.imagen)
       formData.append('form', JSON.stringify(this.form))
       console.log(this.form)
       this.$api.post('nuevo_producto', formData).then(res => {
         if (res) {
           this.$q.notify({
-            message: 'Producto creado',
+            message: 'Servicio creado',
             color: 'positive'
           })
           this.$q.loading.hide()
@@ -137,32 +111,14 @@ export default {
       this.$v.form.$touch()
       this.$api.put('editar_producto/' + this.form._id, this.form).then(res => {
         if (res) {
-          // this.dialog = true
-          // this.getFormasPago()
           this.$q.notify({
-            message: 'Forma de pago actualizada con éxito',
+            message: 'Servicio actualizado con éxito',
             color: 'positive'
           })
           this.$q.loading.hide()
         } else {
           this.$q.loading.hide()
         }
-      })
-    },
-    eliminar (data) {
-      this.$q.dialog({
-        title: 'Confirma',
-        message: '¿Seguro deseas eliminar esta forma de pago?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.$api.put('eliminar_producto/' + data._id).then(res => {
-          if (res) {
-            this.getFormasPago()
-          }
-        })
-      }).onCancel(() => {
-        // Cancel
       })
     },
     filtrar (val) {

@@ -1,10 +1,9 @@
 <template>
-  <q-layout view="hHh Lpr lff">
+  <q-layout view="lHh lpR lFf">
     <q-header elevated class="bg-white q-py-sm">
       <div class="row justify-between text-grey-8 no-wrap">
         <div class="col-6 row items-center no-wrap">
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" color="grey-8" />
-          <img src="logo.png" style="width:140px" />
+          <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" color="grey-8" /> -->
         </div>
         <div class="col-6 q-px-sm justify-end row items-center no-wrap">
           <!-- <img src="avatar gris 1.png" style="width:50px" /> -->
@@ -27,6 +26,7 @@
       >
         <q-scroll-area class="fit bg-primary">
           <q-list class="q-pt-md">
+            <img src="logoblanco.png" style="width:140px; margin-left: 30px; padding-bottom:10px " />
             <q-expansion-item
               v-for="(item, index) in menu"
               :key="index"

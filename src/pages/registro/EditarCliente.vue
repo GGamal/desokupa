@@ -263,6 +263,7 @@ export default {
       this.$v.form.$touch()
       this.$v.provincia.$touch()
       this.$v.apoderado.$touch()
+      const formData = new FormData()
       if (!this.$v.form.$error && !this.$v.apoderado.$error && !this.$v.provincia.$error) {
         this.$q.loading.show({
           message: 'Guardando...'
@@ -276,7 +277,9 @@ export default {
         if (this.form.type === 2) {
           this.form.apoderado = this.apoderado
         }
-        await this.$api.put('edit_cliente/' + this.form._id, this.form).then(res => {
+        formData.append('imagen', this.form.imagen)
+        formData.append('form', JSON.stringify(this.form))
+        await this.$api.put('edit_cliente/' + this.form._id, formData).then(res => {
           if (res) {
             this.$q.notify({
               message: 'Datos guardados correctamente',
@@ -294,6 +297,40 @@ export default {
         })
       }
     }
+    //   this.$v.form.$touch()
+    //   this.$v.provincia.$touch()
+    //   this.$v.apoderado.$touch()
+    //   if (!this.$v.form.$error && !this.$v.apoderado.$error && !this.$v.provincia.$error) {
+    //     this.$q.loading.show({
+    //       message: 'Guardando...'
+    //     })
+    //     if (this.provincia) {
+    //       this.form.provincia_id = this.provincia._id
+    //     }
+    //     if (this.localidad) {
+    //       this.form.localidad_id = this.localidad._id
+    //     }
+    //     if (this.form.type === 2) {
+    //       this.form.apoderado = this.apoderado
+    //     }
+    //     await this.$api.put('edit_cliente/' + this.form._id, this.form).then(res => {
+    //       if (res) {
+    //         this.$q.notify({
+    //           message: 'Datos guardados correctamente',
+    //           color: 'positive'
+    //         })
+    //         this.$q.loading.hide()
+    //       } else {
+    //         this.$q.loading.hide()
+    //       }
+    //     })
+    //   } else {
+    //     this.$q.notify({
+    //       message: 'Debe ingresar todos los datos requeridos',
+    //       color: 'negative'
+    //     })
+    //   }
+    // }
   }
 }
 </script>

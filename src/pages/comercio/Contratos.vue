@@ -53,7 +53,7 @@
     >
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props">
-          <div class="text-center"><img src='this.url'/></div>
+          <div class="text-center"><img :src="'cliente_img/' + props.row.email"  /></div>
         </q-td>
       </template>
       <template v-slot:body-cell-type="props">
@@ -85,10 +85,10 @@
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
           <div class="row no-wrap justify-center q-gutter-xs">
-            <q-btn  size="sm" icon="visibility" color="orange" dense rounded push no-wrap style="width:90px"
-            @click="ver(props.row)"/>
-            <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
-            @click="$router.push('/editar_presupuesto/' + props.row._id)"/>
+            <!-- <q-btn  size="sm" icon="visibility" color="orange" dense rounded push no-wrap style="width:90px"
+            @click="ver(props.row)"/> -->
+            <!-- <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
+            @click="$router.push('/editar_presupuesto/' + props.row._id)"/> -->
             <q-btn v-if="props.row.status === 0" icon="thumb_up_off_alt" color="green" size="sm" dense rounded no-wrap style="width:90px"
             @click="cambiar(true, props.row)"/>
             <q-btn v-if="props.row.status === 0" icon="thumb_down_off_alt" color="red" size="sm" dense rounded push no-wrap style="width:90px"
@@ -235,6 +235,7 @@ export default {
   data () {
     return {
       url: '',
+      email: null,
       moneda: null,
       dialog: false,
       filterSelec: null,
@@ -272,7 +273,7 @@ export default {
         { val: 8, name: 'Finalizados' } */
       ],
       columns: [
-        { name: 'imagen', label: 'Foto', align: 'center', field: 'imagen' },
+        // { name: 'imagen', label: 'Foto', align: 'center', field: 'email' },
         // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
         { name: 'cliente', label: 'Cliente', align: 'center', field: 'cliente' },
         { name: 'email', label: 'Email', align: 'center', field: 'email' },

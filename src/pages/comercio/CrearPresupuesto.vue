@@ -123,6 +123,10 @@
               :error="$v.servicio.$error"
               @blur="$v.servicio.$touch()"
               option-label="name"
+              multiple
+              counter
+              use-chips
+              filled
             >
               <template v-slot:no-option>
                 <q-item>
@@ -170,7 +174,14 @@
             </template>
             </q-input>
           </div>
-          <div v-if="moneda === 'CLP'">
+          <q-toggle
+            v-model="activarimpuesto"
+            icon="attach_money"
+            label="Poner impuestos"
+            val="lg"
+            size="lg"
+            />
+          <div v-if="moneda === 'CLP' && activarimpuesto == true">
             Impuestos:
             <span>CLP IVA 19% del total </span>
             <q-field label="Total con impuesto agregado" outlined dense stack-label>
@@ -179,7 +190,7 @@
               </template>
             </q-field>
           </div>
-          <div v-if="moneda === 'USD'">
+          <div v-if="moneda === 'USD' && activarimpuesto == true">
             Impuestos:
             <span>Paypal 5,4 % + USD 0,30</span>
             <q-field label="Total con impuesto agregado" outlined dense stack-label>
@@ -240,8 +251,11 @@
               </template>
             </q-select>
           </div> -->
-          <q-btn
-            style="width: 100%"
+        </div>
+        <div class="row justify-center">
+        <q-btn
+            class="row justify-between items-center"
+            style="width: 98.5%"
             no-caps
             label="Generar"
             color="primary"
@@ -258,8 +272,9 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
+      activarimpuesto: false,
       total: null,
-      impuestos: null,
+      impuestos: 0,
       moneda: '',
       dialog: false,
       filterSelec: null,
@@ -321,13 +336,12 @@ export default {
   },
   methods: {
     impuesto () {
-      console.log('entre a la funcion impuesto')
+      const activarimpuesto = this.activarimpuesto
       const moneda = this.moneda
       const valor = this.form.valor
       const total = this.form.valor
       this.total = this.form.valor
-      if (moneda === 'CLP') {
-        console.log('es CLP iva')
+      if (moneda === 'CLP' && activarimpuesto === true) {
         const iva = valor * 19 / 100
         console.log('este es el iva', iva)
         const total = valor + iva
@@ -335,8 +349,7 @@ export default {
         this.total = total
         this.impuestos = iva
       }
-      if (moneda === 'USD') {
-        console.log('es usd paypal')
+      if (moneda === 'USD' && activarimpuesto === true) {
         const iva = valor * 5.4 / 100 + 0.30
         console.log('este es impuesto paypal', iva)
         const total = valor + iva
