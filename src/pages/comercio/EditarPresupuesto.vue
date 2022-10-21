@@ -174,14 +174,7 @@
             </template>
             </q-input>
           </div>
-          <q-toggle
-            v-model="activarimpuesto"
-            icon="attach_money"
-            label="Poner impuestos"
-            val="lg"
-            size="lg"
-            />
-          <div v-if="moneda === 'CLP' && activarimpuesto == true">
+          <div v-if="moneda === 'CLP'">
             Impuestos:
             <span>CLP IVA 19% del total </span>
             <q-field label="Total con impuesto agregado" outlined dense stack-label>
@@ -190,7 +183,7 @@
               </template>
             </q-field>
           </div>
-          <div v-if="moneda === 'USD' && activarimpuesto == true">
+          <div v-if="moneda === 'USD'">
             Impuestos:
             <span>Paypal 5,4 % + USD 0,30</span>
             <q-field label="Total con impuesto agregado" outlined dense stack-label>
@@ -205,7 +198,7 @@
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date v-model="fecha" :locale="myLocale">
+                    <q-date v-model="fecha">
                       <div class="row items-center justify-end">
                         <q-btn v-close-popup label="Close" color="primary" flat />
                       </div>
@@ -251,11 +244,8 @@
               </template>
             </q-select>
           </div> -->
-        </div>
-        <div class="row justify-center">
-        <q-btn
-            class="row justify-between items-center"
-            style="width: 98.5%"
+          <q-btn
+            style="width: 100%"
             no-caps
             label="Generar"
             color="primary"
@@ -272,10 +262,8 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
-      edit: false,
-      activarimpuesto: false,
       total: null,
-      impuestos: 0,
+      impuestos: null,
       moneda: '',
       dialog: false,
       filterSelec: null,
@@ -284,6 +272,7 @@ export default {
       tab: null,
       cliente: null,
       fecha: ('2022'),
+      edit: true,
       // inmuebles: null,
       filter: '',
       form: {},
@@ -297,21 +286,11 @@ export default {
       // inmueblesOption: [],
       baseu: '',
       role: null,
-      listCustomers: null,
+      listCustomers: null
       // types: [
       //   { val: 1, name: 'Contrato Desokupa' },
       //   { val: 2, name: 'Contrato 365' }
       // ]
-      myLocale: {
-        /* starting with Sunday */
-        days: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
-        daysShort: 'Dom_Lun_Mar_Mié_Jue_Vie_Sáb'.split('_'),
-        months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
-        monthsShort: 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_'),
-        firstDayOfWeek: 1, // 0-6, 0 - Sunday, 1 Monday, ...
-        format24h: true,
-        pluralDay: 'dias'
-      }
     }
   },
   validations: {
@@ -334,19 +313,20 @@ export default {
     this.getFormasPago()
     this.getClientes()
     this.impuesto()
-    if (this.$route.params.id) {
-      this.edit = true
-      this.getPresupuestoID(this.$route.params.id)
-    }
+    // if (this.$route.params.id) {
+    //   this.edit = true
+    //   this.getContratos(this.$route.params.id)
+    // }
   },
   methods: {
     impuesto () {
-      const activarimpuesto = this.activarimpuesto
+      console.log('entre a la funcion impuesto')
       const moneda = this.moneda
       const valor = this.form.valor
       const total = this.form.valor
       this.total = this.form.valor
-      if (moneda === 'CLP' && activarimpuesto === true) {
+      if (moneda === 'CLP') {
+        console.log('es CLP iva')
         const iva = valor * 19 / 100
         console.log('este es el iva', iva)
         const total = valor + iva
@@ -354,7 +334,8 @@ export default {
         this.total = total
         this.impuestos = iva
       }
-      if (moneda === 'USD' && activarimpuesto === true) {
+      if (moneda === 'USD') {
+        console.log('es usd paypal')
         const iva = valor * 5.4 / 100 + 0.30
         console.log('este es impuesto paypal', iva)
         const total = valor + iva
@@ -461,16 +442,16 @@ export default {
         this.form.servicio = this.servicio
         this.form.fecha = this.fecha
         this.form.total = this.total
-        this.form.moneda = this.moneda
         this.form.impuestos = this.impuestos
-        // this.form.email = this.cliente.email
-        // this.form.imagen = this.cliente.imagen
-        // this.form.phone = this.cliente.phone1
-        // this.form.pais = this.cliente.provincia
+        this.form.cliente = this.cliente
+        this.form.email = this.cliente.email
+        this.form.imagen = this.cliente.imagen
+        this.form.phone = this.cliente.phone1
+        this.form.pais = this.cliente.provincia
         // this.form.inmuebles = this.inmuebles
         this.form.listo = false
         this.form.status = 0
-        this.form.adjuntos = []
+        // this.form.adjuntos = []
         this.$api.post('generar_link', this.form).then(res => {
           if (res) {
             this.dialog = false

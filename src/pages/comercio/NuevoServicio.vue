@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
         <div class="row justify-between q-pa-sm bg-primary" style="width:100%">
-          <img src="logoblanco.png" style="width:180px" />
+          <img src="logoblanco.png" style="width:150px" />
           <q-btn round flat color="white" icon="clear" v-close-popup />
         </div>
         <div class="text-grey-8 text-center text-h5 q-mt-md">Nuevo producto</div>
@@ -15,13 +15,13 @@
           <div class="q-gutter-md row items-start q-pa-md justify-center">
             <q-select
               filled
-              label="Categorias"
+              label="Servicios"
               v-model="form.categoria"
               multiple
               :options="categorias"
               map-options
               counter
-              hint="Categorias seleccionados"
+              hint="Servicios seleccionados"
               style="width: 280px"
               option-label="name"
               option-value="name"
@@ -43,12 +43,11 @@
       <div class="row justify-center">
         <p style="font-size: 12px;">Imagen de 800x800 px</p>
       </div>
-      <div class="row justify-center"><q-input v-model="form.descripcion" type="textarea" dense outlined class="q-pa-md row justify-center " cols="100" rows="4"></q-input></div>
-      </div>
-      <div class="row justify-between" style="width:100%">
-        <q-btn class="q" style="width:100%" no-caps label="Guardar" color="primary" size="lg"
+      <div class="row justify-center"><q-input v-model="form.descripcion" type="textarea" dense outlined class="q-pa-md row justify-center "   cols="100" rows="4"></q-input></div>
+          <q-btn style="width:100%" no-caps label="Guardar" color="primary" size="lg"
           @click="!edit ? guardar() : actualizar()" />
       </div>
+
   </div>
 </template>
 

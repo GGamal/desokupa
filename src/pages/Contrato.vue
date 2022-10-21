@@ -38,11 +38,11 @@
               </q-item>
               <q-item>
                 <q-item-section avatar> <q-icon name="place" /> </q-item-section>
-                <q-item-section> <div>Ciudad: <b>{{user.direccion}}</b></div> </q-item-section>
+                <q-item-section> <div>Moneda: <b>{{user.localidad}}</b></div> </q-item-section>
               </q-item>
               <q-item>
-                <q-item-section avatar> <q-icon name="paid" /> </q-item-section>
-                <q-item-section> <div>Tipo de moneda: <b>{{user.localidad}}</b></div> </q-item-section>
+                <q-item-section avatar> <q-icon name="my_location" /> </q-item-section>
+                <q-item-section> <div>Ciudad: <b>{{user.direccion}}</b></div> </q-item-section>
               </q-item>
             </div>
           </q-card-section>
@@ -66,7 +66,7 @@
           <q-card-section class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
               <q-item>
-                <q-item-section avatar> <q-icon name="attach_money" /> </q-item-section>
+                <q-item-section avatar> <q-icon name="euro" /> </q-item-section>
                 <q-item-section> <div>Valor: <b class="text-green text-h6">{{contrato.valor}}</b></div> </q-item-section>
               </q-item>
               <q-item v-if="contrato.fechaFirma">
@@ -159,7 +159,7 @@
                 <q-item-section> <div>Teléfono: <b>{{contrato.cliente ? contrato.cliente.phone1 : ''}}</b></div> </q-item-section>
               </q-item>
             </div>
-            <!-- <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="text-bold">Inmuebles</div>
               <div v-if="contrato.inmueblesInfo && contrato.inmueblesInfo.length">
                 <q-item v-for="(item, index) in contrato.inmueblesInfo" :key="index">
@@ -179,7 +179,7 @@
                   <q-item-section>{{item.localidadName}} {{item.cp}}</q-item-section>
                 </q-item>
               </div>
-            </div> -->
+            </div>
           </q-card-section>
         </q-card>
       </q-expansion-item>
@@ -527,48 +527,8 @@ export default {
     this.baseuHito = env.apiUrl + 'hito_file/'
     this.baseuAdjunto = env.apiUrl + 'adjunto_file/'
     this.getData()
-    // this.getFormasPago()
-    // this.getClientes()
-    // this.getServicios()
-    // this.getUsuarios()
   },
   methods: {
-    // getUsuarios () {
-    //   this.$q.loading.show({
-    //     message: 'Cargando datos...'
-    //   })
-    //   this.$api.post('user_by_rol', { rol: [1, 2, 3, 4, 5, 6] }).then(res => {
-    //     if (res) {
-    //       this.allData = res
-    //       this.data = this.allData
-    //       this.$q.loading.hide()
-    //     } else {
-    //       this.$q.loading.hide()
-    //     }
-    //   })
-    // },
-    // getFormasPago () {
-    //   this.$api.get('formas_pagos').then(res => {
-    //     if (res) {
-    //       this.formasPago = res
-    //     }
-    //   })
-    // },
-    // getServicios () {
-    //   this.$api.get('productos').then(res => {
-    //     if (res) {
-    //       this.servicios = res
-    //     }
-    //   })
-    // },
-    // getClientes () {
-    //   this.$api.get('clientes').then(res => {
-    //     if (res) {
-    //       this.clientes = [...res]
-    //       this.listCustomers = [...res]
-    //     }
-    //   })
-    // },
     getRol () {
       this.$api.get('user_logueado').then(v => {
         if (v) {

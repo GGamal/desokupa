@@ -265,7 +265,6 @@ export default {
       this.$v.form.$touch()
       this.$v.provincia.$touch()
       this.$v.apoderado.$touch()
-      const formData = new FormData()
       if (!this.$v.form.$error && !this.$v.apoderado.$error && !this.$v.provincia.$error) {
         this.$q.loading.show({
           message: 'Guardando...'
@@ -279,9 +278,6 @@ export default {
         if (this.form.type === 2) {
           this.form.apoderado = this.apoderado
         }
-        formData.append('imagen', this.form.imagen)
-        formData.append('form', JSON.stringify(this.form))
-        console.log(this.form.imagen)
         await this.$api.put('edit_cliente/' + this.form._id, this.form).then(res => {
           if (res) {
             this.$q.notify({

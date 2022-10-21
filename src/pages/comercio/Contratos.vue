@@ -53,7 +53,7 @@
     >
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props">
-          <div class="text-center"><img :src="'cliente_img/' + props.row.email"  /></div>
+          <div class="text-center"><img src='this.url'/></div>
         </q-td>
       </template>
       <template v-slot:body-cell-type="props">
@@ -235,7 +235,6 @@ export default {
   data () {
     return {
       url: '',
-      email: null,
       moneda: null,
       dialog: false,
       filterSelec: null,
@@ -273,7 +272,7 @@ export default {
         { val: 8, name: 'Finalizados' } */
       ],
       columns: [
-        // { name: 'imagen', label: 'Foto', align: 'center', field: 'email' },
+        { name: 'imagen', label: 'Foto', align: 'center', field: 'imagen' },
         // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
         { name: 'cliente', label: 'Cliente', align: 'center', field: 'cliente' },
         { name: 'email', label: 'Email', align: 'center', field: 'email' },

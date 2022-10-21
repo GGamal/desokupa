@@ -78,6 +78,7 @@ export default {
   data () {
     return {
       listo: false,
+      edit: false,
       tab: null,
       filter: '',
       form: {},
@@ -102,10 +103,10 @@ export default {
     }
   },
   mounted () {
-    this.getServicios()
+    this.getFormasPago()
   },
   methods: {
-    getServicios () {
+    getFormasPago () {
       this.$q.loading.show({
         message: 'Cargando datos...'
       })
