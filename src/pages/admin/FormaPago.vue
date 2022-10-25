@@ -55,14 +55,14 @@
     >
       <template v-slot:body-cell-cuota="props">
         <q-td :props="props">
-          <div class="row justify-center q-gutter-xs">
+          <div class="row justify-start q-gutter-xs">
             <div>{{props.row.cuota}} cuotas</div>
           </div>
         </q-td>
       </template>
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
-          <div class="row no-wrap justify-center q-gutter-xs">
+          <div class="row no-wrap justify-start q-gutter-xs">
             <q-btn size="sm" icon="visibility" color="orange" dense rounded push no-wrap style="width:90px"
             @click="form = props.row, verForma = true"/>
             <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:90px"
@@ -160,8 +160,8 @@ export default {
       ],
       columns: [
         { name: 'name', label: 'Nombre', align: 'left', field: 'name', sortable: true },
-        { name: 'cuota', label: 'Cantidad de cuotas', align: 'center', field: 'cuota' },
-        { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
+        { name: 'cuota', label: 'Cantidad de cuotas', align: 'left', field: 'cuota' },
+        { name: 'opcion', label: 'Opciones', align: 'left', field: 'opcion' }
       ],
       pagination: {
         rowsPerPage: 50 // current rows per page being displayed

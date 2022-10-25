@@ -86,9 +86,9 @@ export default {
       data: [],
       columns: [
         { name: 'name', label: 'Nombre', align: 'left', field: 'name', sortable: true },
-        { name: 'categoria', label: 'Categorias', align: 'center', field: 'categoria' },
-        { name: 'descripcion', label: 'Descripcion', align: 'center', field: 'descripcion' },
-        { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
+        { name: 'categoria', label: 'Categorias', align: 'left', field: 'categoria' },
+        { name: 'descripcion', label: 'Descripcion', align: 'left', field: 'descripcion' },
+        { name: 'opcion', label: 'Opciones', align: 'left', field: 'opcion' }
       ],
       pagination: {
         rowsPerPage: 50 // current rows per page being displayed

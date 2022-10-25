@@ -53,7 +53,7 @@
     >
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
-          <div class="row justify-center no-wrap q-gutter-xs">
+          <div class="row justify-start no-wrap q-gutter-xs">
             <q-btn icon="visibility" size="sm" color="orange" dense rounded push no-wrap style="width:80px"
             @click="usuario = props.row, dialog = true"/>
             <q-btn size="sm" icon="edit" color="blue" dense rounded push no-wrap style="width:80px"
@@ -181,13 +181,13 @@ export default {
       ],
       columns: [
         { name: 'full_name', label: 'Nombre', align: 'left', field: 'full_name', sortable: true },
-        { name: 'dni', label: 'Numero identificador', align: 'center', field: 'dni' },
-        { name: 'email', label: 'Email', align: 'center', field: 'email' },
-        { name: 'phone1', label: 'Teléfono', align: 'center', field: 'phone1' },
-        { name: 'provincia', label: 'Pais', align: 'center', field: 'provincia' },
-        // { name: 'direccion', label: 'Ciudad', align: 'center', field: 'direccion' },
-        // { name: 'localidad', label: 'Moneda', align: 'center', field: 'localidad' },
-        { name: 'actions', label: 'Opciones', align: 'center', field: 'actions' }
+        { name: 'dni', label: 'Numero identificador', align: 'left', field: 'dni' },
+        { name: 'email', label: 'Email', align: 'left', field: 'email' },
+        { name: 'phone1', label: 'Teléfono', align: 'left', field: 'phone1' },
+        { name: 'provincia', label: 'Pais', align: 'left', field: 'provincia' },
+        // { name: 'direccion', label: 'Ciudad', align: 'left', field: 'direccion' },
+        // { name: 'localidad', label: 'Moneda', align: 'left', field: 'localidad' },
+        { name: 'actions', label: 'Opciones', align: 'left', field: 'actions' }
       ],
       pagination: {
         rowsPerPage: 50 // current rows per page being displayed

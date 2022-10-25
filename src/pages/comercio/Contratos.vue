@@ -51,32 +51,49 @@
       class="no-shadow"
       :pagination.sync="pagination"
     >
-      <template v-slot:body-cell-imagen="props">
+      <!-- <template v-slot:body-cell-imagen="props">
         <q-td :props="props">
           <div class="text-center"><img :src="'cliente_img/' + props.row.email"  /></div>
         </q-td>
-      </template>
-      <template v-slot:body-cell-type="props">
+      </template> -->
+      <template v-slot:body-cell-servicio="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.name ? props.row.name + '€' : '---'}}</div>
+          <div class="text-left">{{props.row.servicio[0].name ? props.row.servicio[0].name  : '---'}}</div>
         </q-td>
-        <!-- <q-td :props="props">
-          <div class="text-center">{{props.row.type === 1 ? 'Contrato Desokupa' : 'Contrato 365'}}</div>
-        </q-td> -->
+      </template>
+      <template v-slot:body-cell-cliente="props">
+        <q-td :props="props">
+          <div class="text-left">{{props.row.cliente ? props.row.cliente : '---'}}</div>
+        </q-td>
       </template>
       <template v-slot:body-cell-total="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.total ? props.row.total  : '---'}} {{props.row.moneda}}</div>
+          <div class="text-left">{{props.row.total ? props.row.total  : '---'}} {{props.row.moneda}}</div>
+        </q-td>
+      </template>
+       <template v-slot:body-cell-email="props">
+        <q-td :props="props">
+          <div class="text-left">{{props.row.email ? props.row.email  : '---'}} </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-provincia="props">
+        <q-td :props="props">
+          <div class="text-left">{{props.row.provincia ? props.row.provincia  : '---'}} </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-phone1="props">
+        <q-td :props="props">
+          <div class="text-left">{{props.row.phone1 ? props.row.phone1  : '---'}} </div>
         </q-td>
       </template>
       <template v-slot:body-cell-impuestos="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.impuestos ? props.row.impuestos  : '---'}} {{props.row.moneda}}</div>
+          <div class="text-left">{{props.row.impuestos ? props.row.impuestos  : '---'}} {{props.row.moneda}}</div>
         </q-td>
       </template>
       <template v-slot:body-cell-status="props">
         <q-td :props="props">
-          <div class="row no-wrap items-center justify-center">
+          <div class="row no-wrap items-center justify-start">
             <q-icon name="circle" size="sm" :color="props.row.status === 0 ? 'orange' : props.row.status === 1 ? 'blue' : props.row.status === 2 ? 'green' : props.row.status === 4 ? 'blue' : props.row.status === 5 ? 'yellow' : props.row.status === 6 ? 'blue' : props.row.status === 7 ? 'yellow' : props.row.status === 8 ? 'green' : 'red'" />
             <div>{{props.row.status === 0 ? 'Generado' : props.row.status === 1 ? 'Llenado' : props.row.status === 2 ? 'Aprobado' : props.row.status === 4 ? 'Disponible para Op' : props.row.status === 5 ? 'Asignado a OP' : props.row.status === 6 ? 'Disponible para Legal' : props.row.status === 7 ? 'Tomado por Legal' : props.row.status === 8 ? 'Finalizado' : 'Rechazado'}}</div>
           </div>
@@ -274,16 +291,16 @@ export default {
       ],
       columns: [
         // { name: 'imagen', label: 'Foto', align: 'center', field: 'email' },
-        // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
-        { name: 'cliente', label: 'Cliente', align: 'center', field: 'cliente' },
-        { name: 'email', label: 'Email', align: 'center', field: 'email' },
-        { name: 'phone1', label: 'Telefono', align: 'center', field: 'phone1' },
-        { name: 'provincia', label: 'Pais', align: 'center', field: 'provincia' },
-        { name: 'total', label: 'Valor del contrato', align: 'center', field: 'total' },
-        { name: 'impuestos', label: 'Impuesto agregado', align: 'center', field: 'impuestos' },
-        { name: 'status', label: 'Estado', align: 'center', field: 'status' },
-        { name: 'fecha', label: 'Fecha de expiracion', align: 'center', field: 'fecha' },
-        { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
+        { name: 'servicio', label: 'Servicio', align: 'left', field: 'servicio' },
+        { name: 'cliente', label: 'Cliente', align: 'left', field: 'cliente' },
+        { name: 'email', label: 'Email', align: 'left', field: 'email' },
+        { name: 'phone1', label: 'Telefono', align: 'left', field: 'phone1' },
+        { name: 'provincia', label: 'Pais', align: 'left', field: 'provincia' },
+        { name: 'total', label: 'Valor del contrato', align: 'left', field: 'total' },
+        { name: 'impuestos', label: 'Impuesto agregado', align: 'left', field: 'impuestos' },
+        { name: 'status', label: 'Estado', align: 'left', field: 'status' },
+        { name: 'fecha', label: 'Fecha de expiracion', align: 'left', field: 'fecha' },
+        { name: 'opcion', label: 'Opciones', align: 'left', field: 'opcion' }
       ],
       pagination: {
         rowsPerPage: 50 // current rows per page being displayed

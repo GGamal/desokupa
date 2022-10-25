@@ -51,14 +51,14 @@
           <div class="text-center">{{props.row.type === 1 ? 'Contrato Desokupa' : 'Contrato 365'}}</div>
         </q-td>
       </template>
-      <template v-slot:body-cell-valor="props">
+      <template v-slot:body-cell-total="props">
         <q-td :props="props">
-          <div class="text-center">{{props.row.valor ? props.row.valor + '€' : '---'}}</div>
+          <div class="text-left">{{props.row.total ? props.row.total : '---'}} {{props.row.moneda}}</div>
         </q-td>
       </template>
       <template v-slot:body-cell-status="props">
         <q-td :props="props">
-          <div class="row no-wrap items-center justify-center">
+          <div class="row no-wrap items-center justify-start">
             <q-icon name="circle" size="sm" :color="props.row.status === 2 ? 'green' : props.row.status === 4 ? 'blue' : props.row.status === 5 ? 'yellow' : props.row.status === 6 ? 'blue' : props.row.status === 7 ? 'yellow' : 'green'" />
             <div>{{props.row.status === 2 ? 'Aprobado' : props.row.status === 4 ? 'Disponible para Op' : props.row.status === 5 ? 'Asignado a Op' : props.row.status === 6 ? 'Disponible para Legal' : props.row.status === 7 ? 'Tomado por Legal' :  'Finalizado'}}</div>
           </div>
@@ -66,7 +66,7 @@
       </template>
       <template v-slot:body-cell-paymentStatus="props">
         <q-td :props="props">
-          <div class="row no-wrap items-center justify-center">
+          <div class="row no-wrap items-center justify-start">
             <q-icon name="circle" size="sm" :color="props.row.paymentStatus === 2 ? 'green' : props.row.paymentStatus === 1 ? 'yellow' : 'red'" />
             <div>{{props.row.paymentStatus === 2 ? 'Pago Completado' : props.row.paymentStatus === 1 ? 'Abonado' : 'En Deuda'}}</div>
           </div>
@@ -74,7 +74,7 @@
       </template>
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
-          <div class="row no-wrap justify-center q-gutter-xs">
+          <div class="row no-wrap justify-start q-gutter-xs">
             <q-btn icon="euro" label="Ver Cuotas" color="orange" size="sm" dense rounded push no-wrap style="width:100px"
             @click="cambiar(props.row)"/>
           </div>
@@ -129,18 +129,18 @@ export default {
         { val: 8, name: 'Finalizados' }
       ],
       columns: [
-        { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
-        { name: 'inmobiliaria', label: 'Inmobiliaria', align: 'center', field: 'inmobiliaria', sortable: true },
-        { name: 'comercial', label: 'Comercial', align: 'center', field: 'comercial', sortable: true },
-        { name: 'clientName', label: 'Cliente', align: 'center', field: 'clientName', sortable: true },
-        { name: 'adminName', label: 'Creado por', align: 'center', field: 'adminName', sortable: true },
-        { name: 'type', label: 'Tipo', align: 'center', field: 'type' },
-        { name: 'pagoInfo', label: 'Forma de pago', align: 'center', field: 'pagoInfo' },
-        { name: 'valor', label: 'Valor', align: 'center', field: 'valor' },
-        { name: 'status', label: 'Estado', align: 'center', field: 'status' },
-        { name: 'paymentStatus', label: 'Estado de pago', align: 'center', field: 'paymentStatus' },
-        { name: 'date', label: 'Fecha de Creación', align: 'center', field: 'date' },
-        { name: 'opcion', label: 'Opciones', align: 'center', field: 'opcion' }
+        // { name: 'numero', label: 'Número', align: 'left', field: 'numero', sortable: true },
+        // { name: 'inmobiliaria', label: 'Inmobiliaria', align: 'left', field: 'inmobiliaria', sortable: true },
+        // { name: 'comercial', label: 'Comercial', align: 'left', field: 'comercial', sortable: true },
+        { name: 'clientName', label: 'Cliente', align: 'left', field: 'clientName', sortable: true },
+        { name: 'adminName', label: 'Creado por', align: 'left', field: 'adminName', sortable: true },
+        // { name: 'type', label: 'Tipo', align: 'left', field: 'type' },
+        { name: 'pagoInfo', label: 'Forma de pago', align: 'left', field: 'pagoInfo' },
+        { name: 'total', label: 'Valor', align: 'left', field: 'total' },
+        { name: 'status', label: 'Estado', align: 'left', field: 'status' },
+        { name: 'paymentStatus', label: 'Estado de pago', align: 'left', field: 'paymentStatus' },
+        { name: 'date', label: 'Fecha de Creación', align: 'left', field: 'date' },
+        { name: 'opcion', label: 'Opciones', align: 'left', field: 'opcion' }
       ],
       pagination: {
         rowsPerPage: 50 // current rows per page being displayed
