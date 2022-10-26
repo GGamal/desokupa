@@ -31,7 +31,7 @@
             />
           </div>
           </div>
-      <div class="row justify-center"><q-input v-model="form.descripcion" type="textarea" dense outlined class="q-pa-md row justify-center " cols="100" rows="4"></q-input></div>
+      <div class="row justify-center"><q-input v-model="form.descripcion" type="text" dense outlined class="q-pa-md row justify-center" style="width:600px"></q-input></div>
       </div>
       <div class="row justify-between" style="width:100%">
         <q-btn class="q" style="width:100%" no-caps label="Guardar" color="primary" size="lg"
@@ -101,6 +101,7 @@ export default {
             color: 'positive'
           })
           this.$q.loading.hide()
+          this.$router.push('/lista_servicios')
         } else {
           this.$q.loading.hide()
         }
@@ -117,6 +118,7 @@ export default {
             color: 'positive'
           })
           this.$q.loading.hide()
+          this.$router.push('/lista_servicios')
         } else {
           this.$q.loading.hide()
         }

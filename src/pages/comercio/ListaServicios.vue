@@ -40,6 +40,7 @@
     </div>
 
     <q-table
+      wrap-cells
       :data="data"
       :columns="columns"
       row-key="name"
@@ -58,6 +59,13 @@
           </div>
         </q-td>
       </template>
+      <!-- <template v-slot:body-cell-descripcion="props">
+        <q-td :props="props">
+          <div class="row justify-start q-gutter-xs overflow-hidden">
+            <div>{{props.row.descripcion}}</div>
+          </div>
+        </q-td>
+      </template> -->
       <template v-slot:body-cell-opcion="props">
         <q-td :props="props">
           <div class="row no-wrap justify-center q-gutter-xs">

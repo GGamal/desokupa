@@ -333,7 +333,7 @@ export default {
               color: 'positive'
             })
             this.$q.loading.hide()
-            this.$router.go(-1)
+            this.$router.push('/usuarios')
           } else {
             this.$q.loading.hide()
           }
@@ -362,6 +362,7 @@ export default {
               color: 'positive'
             })
             this.$q.loading.hide()
+            this.$router.push('/usuarios')
           } else {
             this.$q.loading.hide()
           }

@@ -475,6 +475,7 @@ export default {
               color: 'positive'
             })
             this.$q.loading.hide()
+            this.$router.push('/presupuestos')
           } else {
             this.$q.loading.hide()
           }

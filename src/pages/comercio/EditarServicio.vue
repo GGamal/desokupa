@@ -102,6 +102,7 @@ export default {
             color: 'positive'
           })
           this.$q.loading.hide()
+          this.$router.push('/lista_servicios')
         } else {
           this.$q.loading.hide()
         }
@@ -116,6 +117,7 @@ export default {
             color: 'positive'
           })
           this.$q.loading.hide()
+          this.$router.push('/lista_servicios')
         } else {
           this.$q.loading.hide()
         }

@@ -329,11 +329,11 @@ export default {
         this.$api.post('register', this.form).then(res => {
           if (res) {
             this.$q.notify({
-              message: 'Usiario registrado con éxito',
+              message: 'Usuario registrado con éxito',
               color: 'positive'
             })
             this.$q.loading.hide()
-            this.$router.go(-1)
+            this.$router.push('/usuarios')
           } else {
             this.$q.loading.hide()
           }
@@ -362,6 +362,7 @@ export default {
               color: 'positive'
             })
             this.$q.loading.hide()
+            this.$router.push('/usuarios')
           } else {
             this.$q.loading.hide()
           }
