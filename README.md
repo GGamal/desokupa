@@ -1,8 +1,9 @@
 # Quasar App (trillos)
 
-1#
+## install quasar
+```
 npm install -g quasar/cli
-
+```
 
 A Quasar Framework app
 
