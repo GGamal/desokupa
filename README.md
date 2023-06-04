@@ -1,5 +1,9 @@
 # Quasar App (trillos)
 
+1#
+npm install -g quasar/cli
+
+
 A Quasar Framework app
 
 ## Install the dependencies
